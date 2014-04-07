@@ -1,7 +1,7 @@
 Map-Picker-Game
 ===============
 
-Map-Picker-Game Map picker game application was a course project for Spring 2013 Computer Science III (CSE 219) at Stony Brook University.
+Map picker game application was a course project for Spring 2013 Computer Science III (CSE 219) at Stony Brook University.
 The purpose of this game was to help people learning region names, flags, leaders and capitals.
 
 Author
