@@ -10,6 +10,15 @@ Author
 * Stony Brook University Student <return>
 * leixiang5@yahoo.com <return>
 
+Direction
+===============
+To run my application, you need to have both Java SDK and Netbeans. Follow the direction:
+1. Download all the zip files
+2. Open the NetBeans
+3. Click File, Import, and choose ZIP
+4. Import the zip 
+
+
 Notes
 ===============
 * It includes a Software Design Description (SDD) for the RambleOnTM (Region Picker) game application.
