@@ -12,16 +12,16 @@ Author
 
 Install Direction
 ===============
-To run my application, you need to have both Java SDK and Netbeans. Follow the direction:
-1. Download all the zip files
-2. Open the NetBeans
-3. Click File, Import, and choose ZIP
-4. Import the ZIP file
-5. Now you should see the list of projects
-6. Click on RambleOn project
-7. Click Run Button
-8. Now you should be able to play the game.
-9. Have fun!!!!!!!
+1. You need to have both Java SDK and NetBeans:
+2. Download all the zip files
+3. Open the NetBeans
+4. Click File, Import, and choose ZIP
+5. Import the ZIP file
+6. Now you should see the list of projects
+7. Click on RambleOn project
+8. Click Run Button
+9. Now you should be able to play the game.
+10. Have fun!!!!!!!
 
 Play Game Direction
 ===============
