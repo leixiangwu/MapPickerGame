@@ -1,0 +1,372 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import javax.swing.JPanel;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import ramble_on_sprites.RegionSprite;
+
+/**
+ *
+ * @author Leixiang
+ * @version 1.0
+ */
+public class RambleOnPanel extends JPanel {
+
+    // THIS IS ACTUALLY OUR RegionPicker APP, WE NEED THIS
+    // BECAUSE IT HAS THE GUI STUFF THAT WE NEED TO RENDER
+    private RambleOn game;
+    // AND HERE IS ALL THE GAME DATA THAT WE NEED TO RENDER
+    private RambleOnDataModel data;
+
+    /**
+     * This constructor stores the game and data references, which we'll need
+     * for rendering.
+     *
+     * @param initGame the RegionPicker game that is using this panel for
+     * rendering.
+     *
+     * @param initData the RegionPicker game data.
+     */
+    public RambleOnPanel(RambleOn initGame, RambleOnDataModel initData) {
+        game = initGame;
+        data = initData;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        renderToGraphicsContext(g);
+    }
+
+    public void renderToGraphicsContext(Graphics g) {
+        // RENDER THE WELCOME SCREEN
+        renderWelcomeScreen(g);
+
+        renderAccountsScreen(g);
+
+        renderAccountsCreationScreen(g);
+
+        renderCurrentAccountsScreen(g);
+
+        renderGamePlayScreen(g);
+
+        // IF THE GAME IS OVER (A WIN)
+        renderGameEndScreen(g);
+
+        // IF THE GAME IS IN PROGRESS
+        renderStats(g);
+    }
+
+    public void renderWelcomeScreen(Graphics g) {
+        if (data.isWelcomeScreen()) {
+            Sprite welcomeSprite = game.getGUIButtons().get(WELCOME_TYPE);
+            renderSprite(g, welcomeSprite);
+        }
+    }
+
+    public void renderAccountsScreen(Graphics g) {
+        if (data.isAccountScreen()) {
+            //super.paintComponent(g);
+            Sprite background = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, background);
+        }
+    }
+
+    public void renderAccountsCreationScreen(Graphics g) {
+        if (data.isAccountCreationScreen()) {
+            super.paintComponent(g);
+            Sprite background = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, background);
+        }
+    }
+
+    private void renderCurrentAccountsScreen(Graphics g) {
+        if (data.isCurrentAccountScreen()) {
+            super.paintComponent(g);
+            Sprite s;
+            s = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, s);
+            s = game.getGUIButtons().get(GO_BACK_BUTTON_TYPE);
+            renderSprite(g, s);
+            s = game.getGUIButtons().get(GO_FORWARD_BUTTON_TYPE);
+            renderSprite(g, s);
+        }
+    }
+
+    private void renderGamePlayScreen(Graphics g) {
+        if (data.isGamePlayScreen()) {
+            super.paintComponent(g);
+            Sprite s;
+            s = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, s);
+
+            if (data.getModeState() != null) {
+                if (data.isSubRegionMode()) {
+                    renderSubRegionsStack(g);
+                } else if (data.isFlagMode()) {
+                    renderFlagStack(g);
+                } else if (data.isLeaderMode()) {
+                    renderLeaderStack(g);
+                } else if (data.isCapitalMode()) {
+                    renderCapitalStack(g);
+                }
+            }
+
+            s = game.getGUIDecor().get(GAME_LOGO_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIDecor().get(TOOLBAR_TYPE);
+            renderSprite(g, s);
+
+            //render the map.
+            renderSprite(g, data.getMapSprite());
+
+            g.setFont(LABEL_FONT);
+            g.setColor(Color.WHITE);
+            g.drawString(data.getRegionDataManager().getRegionName(), 400, 40);
+
+            s = game.getGUIButtons().get(SUB_REGION_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(FLAG_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(LEADER_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(CAPITAL_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(LEFT_ARROW_TYPE);
+            renderSprite(g, s);
+
+        }
+    }
+
+    private void renderSubRegionsStack(Graphics g) {
+        String regionName = data.getRegionDataManager().getRegionName();
+        if (regionName != null) {
+            LinkedList<RegionSprite> list = data.getSubRegionStack();
+            Iterator<RegionSprite> it = list.iterator();
+            String textToRender = regionName + " SubRegions";
+            Font font = getMaxFitFont(g, textToRender, 280, 40, "Serif", Font.BOLD, 40);
+            int counter = 0;
+            while (it.hasNext() && (counter < 8)) {
+                RegionSprite ts = it.next();
+                regionName = ts.getRegionName();
+                int x = (int) (ts.getX());
+                int y = (int) (ts.getY());
+                int width = 300;
+                int height = 50;
+                Color fillColor = data.getRegionDataManager().getColorMappedToSubRegion(regionName);
+                Color textColor = Color.ORANGE;
+                if (counter == 0) {
+                    fillColor = new Color(100, 220, 100);
+                    textColor = new Color(255, 0, 0);
+                }
+                g.setColor(fillColor);
+                g.fill3DRect(x, y, width, height, true);
+                g.setColor(textColor);
+                g.drawString(regionName, x, y + 40);
+                counter++;
+            }
+            g.setColor(Color.BLACK);
+            g.fillRect(900, 295, 300, 50);
+            g.setColor(Color.white);
+            g.setFont(font);
+            g.drawString(textToRender, 910, 330);
+        }
+    }
+
+    private void renderFlagStack(Graphics g) {
+        String regionName = data.getRegionDataManager().getRegionName();
+        Iterator<RegionSprite> it = data.getSubRegionStack().iterator();
+        String textToRender = regionName + " SubRegion Flags";
+        Font font = getMaxFitFont(g, textToRender, 280, 40, "Serif", Font.BOLD, 40);
+        int counter = 0;
+        while (it.hasNext() && (counter < 2)) {
+            RegionSprite ts = it.next();
+            renderSprite(g, ts);
+            counter++;
+        }
+        g.setColor(Color.BLACK);
+        g.fillRect(900, 295, 300, 50);
+        g.setColor(Color.white);
+        g.setFont(font);
+        g.drawString(textToRender, 910, 330);
+    }
+
+    private void renderLeaderStack(Graphics g) {
+        String regionName = data.getRegionDataManager().getRegionName();
+        Iterator<RegionSprite> it = data.getSubRegionStack().iterator();
+        String textToRender = regionName + " SubRegion Leaders";
+        Font font = getMaxFitFont(g, textToRender, 280, 40, "Serif", Font.BOLD, 40);
+        int counter = 0;
+        String leaderName;
+        while (it.hasNext() && (counter < 2)) {
+            RegionSprite rs = it.next();
+            regionName = rs.getRegionName();
+            SpriteType bgST = rs.getSpriteType();
+            Image img = bgST.getStateImage(rs.getState());
+            leaderName = data.getRegionDataManager().getLeaderNameMappedToSubRegion(regionName);
+
+            int x = (int) (rs.getX());
+            int y = (int) (rs.getY());
+            int width = (int) rs.getAABBwidth();
+            int height = (int) rs.getAABBheight();
+
+            g.drawImage(img, x, y, width, height, null);
+
+            Color fillColor = data.getRegionDataManager().getColorMappedToSubRegion(regionName);
+            Color textColor = Color.ORANGE;
+            if (counter == 0) {
+                fillColor = new Color(100, 220, 100);
+                textColor = new Color(255, 0, 0);
+            }
+            g.setColor(fillColor);
+            g.fill3DRect(x + width, y, 300 - width, height, true);
+            g.setColor(textColor);
+            g.drawString(leaderName, x + width, y + 100);
+            counter++;
+        }
+        g.setColor(Color.BLACK);
+        g.fillRect(900, 295, 300, 50);
+        g.setColor(Color.white);
+        g.setFont(font);
+        g.drawString(textToRender, 910, 330);
+
+    }
+
+    private void renderCapitalStack(Graphics g) {
+        String regionName = data.getRegionDataManager().getRegionName();
+        if (regionName != null) {
+            LinkedList<RegionSprite> list = data.getSubRegionStack();
+            Iterator<RegionSprite> it = list.iterator();
+            String textToRender = regionName + " SubRegions Capital";
+            Font font = getMaxFitFont(g, textToRender, 280, 40, "Serif", Font.BOLD, 40);
+            int counter = 0;
+            while (it.hasNext() && (counter < 8)) {
+                RegionSprite ts = it.next();
+                regionName = ts.getRegionName();
+                int x = (int) (ts.getX());
+                int y = (int) (ts.getY());
+                int width = 300;
+                int height = 50;
+                Color fillColor = data.getRegionDataManager().getColorMappedToSubRegion(regionName);
+                Color textColor = Color.ORANGE;
+                if (counter == 0) {
+                    fillColor = new Color(100, 220, 100);
+                    textColor = new Color(255, 0, 0);
+                }
+                g.setColor(fillColor);
+                g.fill3DRect(x, y, width, height, true);
+                g.setColor(textColor);
+                g.drawString(regionName, x, y + 40);
+                counter++;
+            }
+            g.setColor(Color.BLACK);
+            g.fillRect(900, 295, 300, 50);
+            g.setColor(Color.white);
+            g.setFont(font);
+            g.drawString(textToRender, 910, 330);
+        }
+    }
+
+    public Font getMaxFitFont(Graphics g, String text, int maxWidth, int maxHeight, String fontFamily, int fontStyle, int desiredPointSize) {
+        Font f = null;
+        boolean bestFontFound = false;
+        while (!bestFontFound) {
+            f = new Font(fontFamily, fontStyle, desiredPointSize);
+            g.setFont(f);
+            FontMetrics fm = g.getFontMetrics();
+            Rectangle2D textBounds = fm.getStringBounds(text, g);
+            double textWidth = textBounds.getWidth();
+            double textHeight = textBounds.getHeight();
+            if ((textWidth > maxWidth) || (textHeight > maxHeight)) {
+                desiredPointSize--;
+                if (desiredPointSize < 1) {
+                    return f;
+                }
+            } else {
+                bestFontFound = true;
+            }
+        }
+        return f;
+    }
+
+    public void renderGameEndScreen(Graphics g) {
+        if (data.isGameEndScreen()) {
+            Sprite s;
+            s = game.getGUIDecor().get(BACKGROUND_TYPE);
+            s.setState(BACKGROUND2_STATE);
+            renderSprite(g, s);
+
+            // RENDER THE WIN IMAGE OVERLAY
+            s = game.getGUIDecor().get(WIN_DISPLAY_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(EXIT_TYPE);
+            renderSprite(g, s);
+
+
+            // AND THEN THE STATS
+            g.setFont(WIN_STATS_FONT);
+            g.setColor(WIN_STATS_COLOR);
+
+            g.drawString("Region: " + data.getRegionDataManager().getRegionName(), WIN_STATS_X, WIN_STATS_START_Y);
+            g.drawString("Score: " + data.calculateScore(), WIN_STATS_X, WIN_STATS_START_Y + WIN_STATS_Y_INC);
+            g.drawString("Game Duration: " + data.getGameWinDurationText(), WIN_STATS_X, WIN_STATS_START_Y + (WIN_STATS_Y_INC * 2));
+            g.drawString("Sub Regions: " + data.getNumberOfSubRegions(), WIN_STATS_X, WIN_STATS_START_Y + (WIN_STATS_Y_INC * 3));
+            g.drawString("Incorrect Guesses: " + data.getIncorrectGuesses(), WIN_STATS_X, WIN_STATS_START_Y + (WIN_STATS_Y_INC * 4));
+        }
+    }
+
+    /**
+     * This method renders the on-screen stats that change as the game
+     * progresses. This means things like the amount of sun the player has
+     * accumulated and how close the player is to winning in the progress bar.
+     *
+     * @param g the Graphics context for this panel
+     */
+    public void renderStats(Graphics g) {
+        if (data.inProgress()) {
+            String statsText = "Timer: " + data.getGameTimeText()
+                    + "    Regions Found: " + data.getRegionsFound()
+                    + "    Regions Left: " + data.getRegionsNotFound()
+                    + "    Incorrect Guesses: " + data.getIncorrectGuesses();
+            g.setFont(STATS_FONT);
+            g.setColor(STATS_COLOR);
+            g.drawString(statsText, STATS_X, STATS_Y);
+        }
+    }
+
+    /**
+     * Renders the s Sprite into the Graphics context g. Note that each Sprite
+     * knows its own x,y coordinate location.
+     *
+     * @param g the Graphics context of this panel
+     *
+     * @param s the Sprite to be rendered
+     */
+    public void renderSprite(Graphics g, Sprite s) {
+        if (!s.getState().equals(INVISIBLE_STATE)) {
+            SpriteType bgST = s.getSpriteType();
+            Image img = bgST.getStateImage(s.getState());
+            g.drawImage(img, (int) s.getX(), (int) s.getY(), bgST.getWidth(), bgST.getHeight(), null);
+        }
+    }
+}

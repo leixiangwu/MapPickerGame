@@ -1,0 +1,31 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on_events;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import mini_game.MiniGame;
+import ramble_on.RambleOnDataModel;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class CreateNewAccountHandler implements ActionListener{
+    
+    private RambleOnDataModel data;
+    private MiniGame game;
+    
+
+    public CreateNewAccountHandler(MiniGame initGame, RambleOnDataModel initData) {
+        data = initData;
+        game = initGame;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        data.createAccount(game);
+    }
+}

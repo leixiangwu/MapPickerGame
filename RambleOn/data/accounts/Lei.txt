@@ -1,0 +1,22 @@
+Lei|8
+The World|1
+SUB_REGION_MODE|2|1000|0
+The World_Asia_China|2
+SUB_REGION_MODE|3|1000|0
+CAPITAL_MODE|2|1000|0
+The World_Asia|3
+FLAG_MODE|6|1000|0
+CAPITAL_MODE|2|999|1
+LEADER_MODE|3|1000|0
+The World_Africa|1
+CAPITAL_MODE|1|999|1
+The World_North America|2
+SUB_REGION_MODE|2|999|1
+CAPITAL_MODE|1|999|1
+The World_Asia_Mongolia|2
+SUB_REGION_MODE|1|598|2
+CAPITAL_MODE|1|999|1
+The World_North America_United States of America|1
+SUB_REGION_MODE|2|999|1
+The World_Africa_Democratic Republic of Congo|1
+SUB_REGION_MODE|1|999|1

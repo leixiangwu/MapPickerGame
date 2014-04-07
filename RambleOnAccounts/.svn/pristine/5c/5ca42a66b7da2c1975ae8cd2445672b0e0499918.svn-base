@@ -1,0 +1,68 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on_account;
+
+import java.util.HashMap;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class Account {
+
+    private String accountName;
+    private HashMap<String, RegionStats> flagModeRegionStats;
+    private HashMap<String, RegionStats> subRegionModeRegionStats;
+    private HashMap<String, RegionStats> capitalModeRegionStats;
+    private HashMap<String, RegionStats> leaderModeRegionStats;
+
+    public Account(String iniAccountName) {
+        accountName = iniAccountName;
+        flagModeRegionStats = new HashMap();
+        subRegionModeRegionStats = new HashMap();
+        leaderModeRegionStats = new HashMap();
+        capitalModeRegionStats = new HashMap();
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    // FM stands for Flag Mode
+    public void addFlagModeStats(String regionName, RegionStats flagModeStats) {
+        flagModeRegionStats.put(regionName, flagModeStats);
+    }
+
+    // SRM stands for SubRegion Mode
+    public void addSubRegionModeStats(String regionName, RegionStats subRegionModeStats) {
+        subRegionModeRegionStats.put(regionName, subRegionModeStats);
+    }
+
+    // CM stands for capital mode.
+    public void addCapitalModeStats(String regionName, RegionStats capitalModeStats) {
+        capitalModeRegionStats.put(regionName, capitalModeStats);
+    }
+
+    // LM stands for leader mode.
+    public void addLeaderModeStats(String regionName, RegionStats leaderModeStats) {
+        leaderModeRegionStats.put(regionName, leaderModeStats);
+    }
+
+    public RegionStats getFlagModeStats(String regionName) {
+        return flagModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getSubRegionModeStats(String regionName) {
+        return subRegionModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getLeaderModeStats(String regionName) {
+        return leaderModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getCapitalModeStats(String regionName) {
+        return capitalModeRegionStats.get(regionName);
+    }
+}

@@ -1,0 +1,183 @@
+package ramble_on;
+
+import javax.swing.JOptionPane;
+import mini_game.MiniGame;
+import mini_game.MiniGameDataModel;
+import ramble_on_account.Account;
+import ramble_on_account.AccountManager;
+import region_data.RegionDataLoader;
+import region_data.RegionDataManager;
+import static ramble_on.RambleOnSettings.*;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import region_data_exceptions.AnthemIsMissingException;
+import region_data_exceptions.DirectoryIsMissingException;
+import region_data_exceptions.FileIsMissingException;
+import region_data_exceptions.InvalidRGBValuesException;
+import region_data_exceptions.MissingXMLDataException;
+import xml_utilities.InvalidXMLFileFormatException;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnDataModel extends MiniGameDataModel {
+
+    private AccountManager accountManager;
+    private RegionDataLoader regionDataLoader;
+    private GameScreenState screenState;
+    private RegionDataManager regionDataManager;
+
+    /**
+     *
+     *
+     */
+    public RambleOnDataModel() {
+        accountManager = new AccountManager();
+        accountManager.load();
+        regionDataLoader = new RegionDataLoader(new File(xmlSchemaNameAndPath));
+        regionDataManager = new RegionDataManager();
+        screenState = GameScreenState.WELCOME_SCREEN;
+    }
+
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public GameScreenState getScreenState() {
+        return screenState;
+    }
+
+    public boolean isWelcomeScreen() {
+        return screenState == GameScreenState.WELCOME_SCREEN;
+    }
+
+    public boolean isAccountScreen() {
+        return screenState == GameScreenState.ACCOUNT_SCREEN;
+    }
+
+    public boolean isAccountCreationScreen() {
+        return screenState == GameScreenState.ACCOUNT_CREATION_SCREEN;
+    }
+
+    public boolean isCurrentAccountScreen() {
+        return screenState == GameScreenState.CURRENT_ACCOUNT_SCREEN;
+    }
+
+    public boolean isGamePlayScreen() {
+        return screenState == GameScreenState.GAME_PLAY_SCREEN;
+    }
+
+    public void createAccount(RambleOn game, String accountName) {
+        if (!accountManager.hasAccount(accountName.trim())) {
+            if (accountName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(game.getCanvas(), "Error: invalid input because user name is empty.");
+            } else {
+                Account newAccount = new Account(accountName);
+                accountManager.addAccount(accountName, newAccount);
+                accountManager.setCurrentAccount(newAccount);
+                screenState = GameScreenState.CURRENT_ACCOUNT_SCREEN;
+                game.clearRegionStats();
+                game.initTree();
+                game.setCurrentAccountGUIVisible();
+                game.setACScreenButtonsInvisible();
+                game.putCAGUIControlsInWindow();
+                game.clearTextInAccountNameField();
+                accountManager.save();
+            }
+        } else {
+            JOptionPane.showMessageDialog(game.getCanvas(), "Account name is already existed.");
+        }
+    }
+
+    @Override
+    public void checkMousePressOnSprites(MiniGame game, int x, int y) {
+    }
+
+    @Override
+    public void reset(MiniGame game) {
+    }
+
+    @Override
+    public void updateAll(MiniGame game) {
+    }
+
+    @Override
+    public void updateDebugText(MiniGame game) {
+    }
+
+    public void goForwardOneScreen(RambleOn game) {
+        if (isWelcomeScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.setAccountsScreenGUIVisible();
+            game.putASGUIControlsInWindow();
+        } else if (isAccountScreen()) {
+            screenState = GameScreenState.CURRENT_ACCOUNT_SCREEN;
+            game.clearRegionStats();
+            game.initTree();
+            game.setCurrentAccountGUIVisible();
+            game.setAccountsScreenGUIInvisible();
+            game.putCAGUIControlsInWindow();
+        } else if (isCurrentAccountScreen()) {
+            screenState = GameScreenState.GAME_PLAY_SCREEN;
+            game.removeTree();
+            game.setCurrentAccountGUIInvisible();
+            loadTheWorld(game);
+        }
+    }
+
+    public void goBackOneScreen(RambleOn game) {
+        if (isAccountCreationScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.setAccountsScreenGUIVisible();
+            game.setACScreenButtonsInvisible();
+            game.putASGUIControlsInWindow();
+            game.clearTextInAccountNameField();
+        } else if (isCurrentAccountScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.removeTree();
+            game.setAccountsScreenGUIVisible();
+            game.setCurrentAccountGUIInvisible();
+            game.putASGUIControlsInWindow();
+        }
+    }
+
+    public void goToAccountCreationScreen(RambleOn game) {
+        if (isAccountScreen()) {
+            screenState = GameScreenState.ACCOUNT_CREATION_SCREEN;
+            game.setACScreenButtonsVisible();
+            game.setAccountsScreenGUIInvisible();
+            game.putACGUIControlsInWindow();
+        }
+    }
+
+    private void loadTheWorld(RambleOn game) {
+        try {
+            regionDataLoader.loadRegionData(THE_WORLD_PATH, regionDataManager);
+        } catch (AnthemIsMissingException ex) {
+            setRegionAnthemAsStandardSong();
+        } catch (InvalidRGBValuesException ex) {
+            JOptionPane.showMessageDialog(game.getCanvas(), "Error: Unable to start the game because " + ex.toString());
+        } catch (DirectoryIsMissingException ex) {
+            JOptionPane.showMessageDialog(game.getCanvas(), "Error: Unable to start the game because " + ex.toString());
+        } catch (FileIsMissingException ex) {
+            disableBadRegion();
+        } catch (InvalidXMLFileFormatException ex) {
+            disableBadRegion();
+        } catch (MissingXMLDataException ex) {
+            disableBadRegion();
+        }
+    }
+
+    private void disableBadRegion() {
+    }
+    
+    public void setRegionAnthemAsStandardSong(){
+    
+    }
+}

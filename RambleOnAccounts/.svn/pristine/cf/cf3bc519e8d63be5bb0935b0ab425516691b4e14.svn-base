@@ -1,0 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on_account;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class Account {
+
+    private String accountName;
+    private HashMap<String, RegionStats> flagModeRegionStats;
+    private HashMap<String, RegionStats> subRegionModeRegionStats;
+    private HashMap<String, RegionStats> capitalModeRegionStats;
+    private HashMap<String, RegionStats> leaderModeRegionStats;
+    private Vector<String> regionsPlayedList;
+
+    public Account(String iniAccountName) {
+        accountName = iniAccountName;
+        flagModeRegionStats = new HashMap();
+        subRegionModeRegionStats = new HashMap();
+        leaderModeRegionStats = new HashMap();
+        capitalModeRegionStats = new HashMap();
+        regionsPlayedList = new Vector();
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void addRegionPlayed(String regionName) {
+        regionsPlayedList.add(regionName);
+    }
+
+    public boolean isRegionPlayed(String regionName) {
+        return regionsPlayedList.contains(regionName);
+    }
+
+    public int numModesPlayed(String regionName) {
+        int numModes = 0;
+
+        if (flagModeRegionStats.get(regionName) != null) {
+            numModes++;
+        }
+        if (subRegionModeRegionStats.get(regionName) != null) {
+            numModes++;
+        }
+        if (leaderModeRegionStats.get(regionName) != null) {
+            numModes++;
+        }
+        if (capitalModeRegionStats.get(regionName) != null) {
+            numModes++;
+        }
+        return numModes;
+    }
+
+    // FM stands for Flag Mode
+    public void addFlagModeStats(String regionName, RegionStats flagModeStats) {
+        flagModeRegionStats.put(regionName, flagModeStats);
+    }
+
+    // SRM stands for SubRegion Mode
+    public void addSubRegionModeStats(String regionName, RegionStats subRegionModeStats) {
+        subRegionModeRegionStats.put(regionName, subRegionModeStats);
+    }
+
+    // CM stands for capital mode.
+    public void addCapitalModeStats(String regionName, RegionStats capitalModeStats) {
+        capitalModeRegionStats.put(regionName, capitalModeStats);
+    }
+
+    // LM stands for leader mode.
+    public void addLeaderModeStats(String regionName, RegionStats leaderModeStats) {
+        leaderModeRegionStats.put(regionName, leaderModeStats);
+    }
+
+    public RegionStats getFlagModeStats(String regionName) {
+        return flagModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getSubRegionModeStats(String regionName) {
+        return subRegionModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getLeaderModeStats(String regionName) {
+        return leaderModeRegionStats.get(regionName);
+    }
+
+    public RegionStats getCapitalModeStats(String regionName) {
+        return capitalModeRegionStats.get(regionName);
+    }
+
+    public int getRegionPlayedSize() {
+        return regionsPlayedList.size();
+    }
+
+    public Iterator<String> getAllRegionsPlayed() {
+        return regionsPlayedList.iterator();
+    }
+}

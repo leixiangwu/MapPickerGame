@@ -1,0 +1,39 @@
+package rambleon;
+
+
+import mini_game.MiniGame;
+import mini_game.MiniGameDataModel;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnDataModel extends MiniGameDataModel {
+
+    /**
+     *
+     */
+    public RambleOnDataModel() {
+
+    }
+
+    @Override
+    public void checkMousePressOnSprites(MiniGame game, int x, int y) {
+    }
+
+    @Override
+    public void reset(MiniGame game) {
+    }
+
+    @Override
+    public void updateAll(MiniGame game) {
+    }
+
+    @Override
+    public void updateDebugText(MiniGame game) {
+    }
+}

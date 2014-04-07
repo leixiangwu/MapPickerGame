@@ -1,0 +1,182 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.image.BufferedImage;
+import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneLayout;
+import ramble_on_account.Account;
+import ramble_on_events.CreateNewAccountHandler;
+import ramble_on_events.GoBackHandler;
+import ramble_on_events.GoForwardHandler;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOn extends MiniGame {
+
+    private JButton create;
+    private JButton okButton;
+    private JButton cancelButton;
+    private JButton selectButton;
+    private JTextField accountNameField;
+    private JList accountsList;
+    private JScrollPane scroll;
+
+    public RambleOn() {
+        // CALL MiniGame CONSTRUCTOR
+        super(APP_TITLE, FRAME_RATE);
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * Initializes the complete data model for this application, forcing the
+     * setting of all game data, including all needed SpriteType objects.
+     */
+    @Override
+    public void initData() {
+        // INIT OUR DATA MANAGER
+        data = new RambleOnDataModel();
+        data.setGameDimensions(GAME_WIDTH, GAME_HEIGHT);
+
+        boundaryLeft = 0;
+        boundaryRight = GAME_WIDTH;
+        boundaryTop = 0;
+        boundaryBottom = GAME_HEIGHT;
+
+    }
+
+    @Override
+    public void initGUIControls() {
+        // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
+        canvas = new RambleOnPanel(this, (RambleOnDataModel) data);
+
+
+        accountNameField = new JTextField(10);
+
+        okButton = new JButton("OK");
+        okButton.setBounds(400, 400, 100, 50);
+
+        cancelButton = new JButton("Cancel");
+        create = new JButton("Create");
+        selectButton = new JButton("Select");
+
+        Vector<String> accountNames = new Vector();
+        accountNames.add("aaaaaaaaaaaaaaaaaaa");
+        accountNames.add("bbbbbbbbb");
+        accountNames.add("cccccccc");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+        accountNames.add("dddddd");
+
+        accountsList = new JList(accountNames);
+        accountsList.setBorder(BorderFactory.createEtchedBorder());
+
+
+        scroll = new JScrollPane(accountsList);
+
+        JTextArea myTextArea = new JTextArea(100, 100);
+        scroll.setVisible(true);
+        canvas.setOpaque(false);
+
+
+        canvas.add(create);
+        canvas.add(okButton);
+        canvas.add(cancelButton);
+        canvas.add(accountNameField);
+        canvas.add(selectButton);
+        canvas.add(accountsList);
+
+
+
+        // WE'LL REUSE THESE GUYS
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        sT = new SpriteType(WELCOME_TYPE);
+        img = loadImage(WELCOME_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiButtons.put(WELCOME_TYPE, s);
+
+        // FIRST LOAD THE BACKGROUND, WHICH IS GUI DECOR
+        sT = new SpriteType(BACKGROUND_TYPE);
+        img = loadImage(BACKGROUND_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiDecor.put(BACKGROUND_TYPE, s);
+
+    }
+
+    @Override
+    public void initGUIHandlers() {
+        GoForwardHandler gfh = new GoForwardHandler((RambleOnDataModel) data);
+        guiButtons.get(WELCOME_TYPE).setActionListener(gfh);
+        okButton.addActionListener(gfh);
+
+        GoBackHandler gbh = new GoBackHandler((RambleOnDataModel) data);
+        cancelButton.addActionListener(gbh);
+
+        CreateNewAccountHandler cnah = new CreateNewAccountHandler(this, (RambleOnDataModel) data);
+        create.addActionListener(cnah);
+
+    }
+
+    @Override
+    public void reset() {
+
+        RambleOnDataModel newData = (RambleOnDataModel) data;
+        Vector<String> accountNames = new Vector();
+        for (Account account : newData.getAccountManager().getAllAccounts()) {
+            accountNames.add(account.getAccountName());
+            accountNames.add("aaaaaaaaaaaaaaaaaaa");
+        }
+
+    }
+
+    @Override
+    public void updateGUI() {
+    }
+
+    public static void main(String[] args) {
+        RambleOn game = new RambleOn();
+        game.startGame();
+    }
+}

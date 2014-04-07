@@ -1,0 +1,1632 @@
+Revision: 215
+Author: Leixiang
+Date: Tuesday, May 14, 2013 7:42:01 PM
+Message:
+Now all the bugs have been fixed and the assignment is ready to handed in.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 214
+Author: Leixiang
+Date: Tuesday, May 14, 2013 4:59:16 PM
+Message:
+Now the game is completely done. Players can play it and the game will write down their stats.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/WorldTreeHandler.java
+
+Revision: 213
+Author: Leixiang
+Date: Tuesday, May 14, 2013 12:17:19 AM
+Message:
+Now all the buttons will be disabled at a proper time.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 212
+Author: Leixiang
+Date: Monday, May 13, 2013 2:55:01 AM
+Message:
+I have to fix the bug that user can double clicks on X button to cross the screen twice.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Added : /RambleOn/src/ramble_on_events/HotKeyHandler.java
+Modified : /RambleOn/src/ramble_on_events/RambleOnEventRelayer.java
+
+Revision: 210
+Author: Leixiang
+Date: Monday, May 13, 2013 2:19:11 AM
+Message:
+I just fixed some bugs. For example, game stats are still on the screen after the user clicks back and etc. Now, the user can play all the modes. Right now, the problem is hotkey. Because when the region is red when the user is playing, after he pressed hot key, the only one that is left is still red. This causes the user not be able to finish the game. So I have to fix this bug.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 209
+Author: Leixiang
+Date: Sunday, May 12, 2013 11:58:21 PM
+Message:
+Now the game will play the national anthem after user completes the region. If the anthem is not existed, it will play a standard song instead.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 208
+Author: Leixiang
+Date: Sunday, May 12, 2013 10:38:42 PM
+Message:
+Now the modes are able to get back to its stats, meaning whether they should be enabled or not.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 207
+Author: Leixiang
+Date: Sunday, May 12, 2013 10:02:55 PM
+Message:
+Now the winning display will render finishing game stats neatly.
+----
+Modified : /RambleOn/src/ramble_on/GameScreenState.java
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/GoBackHandler.java
+
+Revision: 206
+Author: Leixiang
+Date: Sunday, May 12, 2013 8:38:48 PM
+Message:
+Now the game will display a nice winning image and an X control for exit winning display.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/RambleOnEventRelayer.java
+
+Revision: 205
+Author: Leixiang
+Date: Friday, May 10, 2013 3:40:35 PM
+Message:
+Now the game will change the regions that have bad data into white color. However, the speed of loading is too slow. I still have to figure out a way to fix this.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 203
+Author: Leixiang
+Date: Friday, May 10, 2013 2:04:08 PM
+Message:
+Now the user is able to play leader mode. The stack will have leader images and the name next to the image.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 201
+Author: Leixiang
+Date: Friday, May 10, 2013 12:21:41 PM
+Message:
+Now the user is able to click on flag mode to render flag stack and be able to play with flag mode.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Added : /RambleOn/src/ramble_on_sprites/RegionSprite.java (Copy from path: /RambleOn/src/ramble_on_sprites/TextualSprite.java, Revision, 170)
+Deleted : /RambleOn/src/ramble_on_sprites/TextualSprite.java
+
+Revision: 200
+Author: Leixiang
+Date: Friday, May 10, 2013 10:40:17 AM
+Message:
+Now the map will display its region name on top of it.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 199
+Author: Leixiang
+Date: Thursday, May 09, 2013 11:58:04 PM
+Message:
+Now the game will clear reload the original map after user wins the game.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 198
+Author: Leixiang
+Date: Thursday, May 09, 2013 11:03:01 PM
+Message:
+Now the game will render the game stats which tell the user the time, incorrect guesses, regions found and regions unfound.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 197
+Author: Leixiang
+Date: Thursday, May 09, 2013 9:55:16 PM
+Message:
+I just implemented these classes and now I can go into any subregion and right click to go to parent region.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 194
+Author: Leixiang
+Date: Monday, May 06, 2013 9:41:21 PM
+Message:
+I just disable and enable GoForwardButton and GoBackButton at correct screen. Because the bug I found is that these two buttons still work even when they are not shown.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 193
+Author: Leixiang
+Date: Monday, May 06, 2013 9:16:32 PM
+Message:
+I added four methods to enable modes icons.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 192
+Author: Leixiang
+Date: Monday, May 06, 2013 6:07:35 PM
+Message:
+Now the subregion stack will move down after user got the right region.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 191
+Author: Leixiang
+Date: Monday, May 06, 2013 5:57:50 PM
+Message:
+Now, it will remove the red regions after user successfully get right region.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 190
+Author: Leixiang
+Date: Monday, May 06, 2013 5:55:12 PM
+Message:
+Now the game will render the region as red if the user clicks on wrong region. However, it can't remove the red regions after user successfully get right region.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 189
+Author: Leixiang
+Date: Monday, May 06, 2013 5:49:32 PM
+Message:
+Now the app will render the stack once the user clicks on sub region mode for world. Remeber, only for world region. It's not working for other regions. Besides that, the stack will not go down as the user successfully clicks on right region. The region will also not turn red if the user clicks on wrong region. So I still have to fix these issues.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on_events/RambleOnEventRelayer.java
+
+Revision: 188
+Author: Leixiang
+Date: Monday, May 06, 2013 2:10:07 PM
+Message:
+Also, it will set the actionlistener to null so the user cliicks on modes will not make our app do anything.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 186
+Author: Leixiang
+Date: Monday, May 06, 2013 1:41:29 PM
+Message:
+I added a few methods to disable modes but they are not implemented yet.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 183
+Author: Leixiang
+Date: Monday, May 06, 2013 1:23:57 AM
+Message:
+Now the app will render the subregion stack when the user clicks on subregion mode button. However, the stack is not functioning. Right now, it just sits there and doing nothing.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 182
+Author: Leixiang
+Date: Monday, May 06, 2013 12:39:18 AM
+Message:
+Now the game can be able to go from gameplay screen to current account screen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on_events/ModeClickHandler.java
+
+Revision: 181
+Author: Leixiang
+Date: Sunday, May 05, 2013 11:03:49 PM
+Message:
+I change the icon of each mode and add go back another into the toolbar. Now icons look much better.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 180
+Author: Leixiang
+Date: Sunday, May 05, 2013 10:10:23 PM
+Message:
+I just added a toolbar inside the app to hold each modes.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 179
+Author: Leixiang
+Date: Sunday, May 05, 2013 7:58:04 PM
+Message:
+Now the mode button will respond to user's clicks. However, the game can't be played yet.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on_events/ModeClickHandler.java
+
+Revision: 178
+Author: Leixiang
+Date: Sunday, May 05, 2013 7:46:05 PM
+Message:
+I created a new instance in datamodel class to indicate the mode that the user is currently playing. I also created GameModeState to hold the list of modes.
+----
+Added : /RambleOn/src/ramble_on/GameModeState.java
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/ModeClickHandler.java
+Modified : /RambleOn/src/ramble_on_sprites/MapSprite.java
+
+Revision: 177
+Author: Leixiang
+Date: Sunday, May 05, 2013 7:03:42 PM
+Message:
+Now I just created an modeclick handler to handle the clicks on modes. Each mode has a actionlistener. However, the user clicks on them will not cause any action yet. I still need to implemented methods to respond these clicks.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Added : /RambleOn/src/ramble_on_events/ModeClickHandler.java
+
+Revision: 176
+Author: Leixiang
+Date: Sunday, May 05, 2013 6:36:59 PM
+Message:
+Now four modes buttons are displayed in game play screen, but clicking on them will not do anything.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 175
+Author: Leixiang
+Date: Sunday, May 05, 2013 6:32:04 PM
+Message:
+I just added four modes buttongs into the app, but they are not rendered yet.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 174
+Author: Leixiang
+Date: Sunday, May 05, 2013 2:09:32 AM
+Message:
+I just edited the classes to detect right click or left clicks only on map!!!
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on_events/RambleOnEventRelayer.java
+
+Revision: 173
+Author: Leixiang
+Date: Sunday, May 05, 2013 1:58:53 AM
+Message:
+Now the map can go into continents and go back to world. However, our game still can't access countries. So I still need to work on that. I also changed the MapClickHandler to RambleOnEventRelayer because mapclick handler can only handle left click, not right click. Thus, I change it to RambleOnEventRelayer and change the default mouse listener which is set by MiniGameFrameWork.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Deleted : /RambleOn/src/ramble_on_events/MapClickHandler.java
+Added : /RambleOn/src/ramble_on_events/RambleOnEventRelayer.java (Copy from path: /RambleOn/src/ramble_on_events/MapClickHandler.java, Revision, 169)
+
+Revision: 171
+Author: Leixiang
+Date: Saturday, May 04, 2013 11:19:31 PM
+Message:
+I created another data structure in DataModel to hold TextualSprites.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 170
+Author: Leixiang
+Date: Saturday, May 04, 2013 11:18:17 PM
+Message:
+I created another TextualSprite class that extends sprite to represent subregion. This sprite will be in the stack. This sprite will contain  text.
+----
+Added : /RambleOn/src/ramble_on_sprites/TextualSprite.java
+
+Revision: 169
+Author: Leixiang
+Date: Saturday, May 04, 2013 11:02:05 PM
+Message:
+Now the MapClickHandler is implemented and ready to be used. 
+Besides that, I set the map sprite's mouselistener.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on_events/MapClickHandler.java
+
+Revision: 168
+Author: Leixiang
+Date: Saturday, May 04, 2013 10:20:34 PM
+Message:
+I created map sprite class that extends sprite class. This class class will have additional method to set mouselistener. I also created another handler class to handle left click and right click on map. I also created mapsprite in DataModel class for panel to rendering.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Added : /RambleOn/src/ramble_on_events/MapClickHandler.java
+Added : /RambleOn/src/ramble_on_sprites
+Added : /RambleOn/src/ramble_on_sprites/MapSprite.java
+
+Revision: 167
+Author: Leixiang
+Date: Saturday, May 04, 2013 6:44:41 PM
+Message:
+I added a few constants to Settings class for rendering the buttons for each mode!
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 166
+Author: Leixiang
+Date: Saturday, May 04, 2013 5:59:51 PM
+Message:
+Now I just add a few lines of codes to play the background music. Now the user can play the game while enjoying the music!!!
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 165
+Author: Leixiang
+Date: Saturday, May 04, 2013 5:50:32 PM
+Message:
+Now the app will render the world after the user press goforward button on current account screen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 164
+Author: Leixiang
+Date: Saturday, May 04, 2013 5:43:08 PM
+Message:
+I just used  singleton pattern to my game, so any class can access App.!
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 163
+Author: Leixiang
+Date: Saturday, May 04, 2013 5:26:36 PM
+Message:
+Just added another method to get regionDataManager so the panel can render the map.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 162
+Author: Leixiang
+Date: Saturday, May 04, 2013 5:25:48 PM
+Message:
+I just added two instances of RegionDataLoader and RegionDataManager. These two classes are created in HW 6. I will use these two classes to help me loading data and managing them.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 160
+Author: Leixiang
+Date: Saturday, May 04, 2013 3:59:11 PM
+Message:
+Now the gameplay screen will only render the game logo, nothing else.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 159
+Author: Leixiang
+Date: Saturday, May 04, 2013 3:50:26 PM
+Message:
+I just organized some codes to look better.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 158
+Author: Leixiang
+Date: Saturday, May 04, 2013 3:42:09 PM
+Message:
+I just set the action listener for GoForward Button. Now when the user clicks the forward on current account screen, it will transfer user to game play screen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+
+Revision: 157
+Author: Leixiang
+Date: Thursday, May 02, 2013 8:49:41 PM
+Message:
+I simply copied these files from HW 5!
+----
+Added : /RambleOn/data/John.txt
+Added : /RambleOn/data/Leixiang Wu.txt
+Added : /RambleOn/data/gui/Background.png
+Added : /RambleOn/data/gui/GameIcon.png
+Added : /RambleOn/data/gui/GoBack.png
+Added : /RambleOn/data/gui/GoBackMouseOver.png
+Added : /RambleOn/data/gui/GoForward.png
+Added : /RambleOn/data/gui/GoForwardMouseOver.png
+Added : /RambleOn/data/gui/ViewStats.png
+Modified : /RambleOn/data/gui/Welcome.png
+Modified : /RambleOn/nbproject/project.properties
+Modified : /RambleOn/src/ramble_on/GameScreenState.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+
+Revision: 93
+Author: Leixiang
+Date: Tuesday, April 16, 2013 3:41:00 AM
+Message:
+I edited the model class to clear the stats fileds when an account is created.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 92
+Author: Leixiang
+Date: Tuesday, April 16, 2013 3:32:38 AM
+Message:
+I add comments to some methods so others can understand them.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 90
+Author: Leixiang
+Date: Tuesday, April 16, 2013 3:16:59 AM
+Message:
+I modified these classes to save the accounts after the user created an account. I also make it illegal to make not allow the user to creata an account that simply has some spaces after same account name. For example: John   and John are same regardless of their spaces they have.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 89
+Author: Leixiang
+Date: Monday, April 15, 2013 8:35:14 AM
+Message:
+I added another class that describes the format of my data files.
+----
+Added : /RambleOn/src/ramble_on/EmptyClass.java
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+
+Revision: 87
+Author: Leixiang
+Date: Monday, April 15, 2013 8:21:40 AM
+Message:
+Now the game loads accounts properly and display everything properly!
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 86
+Author: Leixiang
+Date: Monday, April 15, 2013 2:57:04 AM
+Message:
+I modified createAccount method to not allow user's input of empty user name.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+
+Revision: 85
+Author: Leixiang
+Date: Monday, April 15, 2013 2:52:49 AM
+Message:
+I change the format of displaying time. Right now it displays time in minutes and seconds.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/WorldTreeHandler.java
+
+Revision: 84
+Author: Leixiang
+Date: Monday, April 15, 2013 2:04:14 AM
+Message:
+I change the classes a little to clear the account name field when the user click cancel or after click ok.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 82
+Author: Leixiang
+Date: Monday, April 15, 2013 1:39:03 AM
+Message:
+The program didn't go to current account screen, so I modified the classes to go to Current Account screen after I created an account.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on_events/GoToAccountCreationHandler.java
+
+Revision: 80
+Author: Leixiang
+Date: Monday, April 15, 2013 12:09:07 AM
+Message:
+Right now, our game can display the regions that a account played. 
+I also modified some classes display GUI controls properly because layoutManager often changes. However, now I change it to proper layoutmanager when it's proper time, so the GUI Controls will layout nicely.
+However, even though the game seems good right now. But I still need to work on changing the content of files and it will show up in the game application.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/GoToAccountCreationHandler.java
+Modified : /RambleOn/src/ramble_on_events/SelectAccountHandler.java
+Modified : /RambleOn/src/ramble_on_events/WorldTreeHandler.java
+
+Revision: 79
+Author: Leixiang
+Date: Sunday, April 14, 2013 10:46:53 PM
+Message:
+I modified every class to display the tree correctly. Now the tree will display the regions in proper format.
+Besides that, I split the tree and space for viewing regions stats.
+Now the tree is done, but the regions stats are not shown, I still need to work on that.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/SelectAccountHandler.java
+Modified : /RambleOn/src/ramble_on_events/WorldTreeHandler.java
+
+Revision: 78
+Author: Leixiang
+Date: Sunday, April 14, 2013 8:09:13 PM
+Message:
+I added two buttons for going back one screen and going forward one screen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 77
+Author: Leixiang
+Date: Sunday, April 14, 2013 7:36:30 PM
+Message:
+I modified everything to display Account Creation and Accounts Screen properly.
+Right now, it can display the list of accounts and let the user create the account. However, it can't display the regions stats. So I still have to create JTree and View regions stats in a proper format.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Modified : /RambleOn/src/ramble_on_events/GoBackHandler.java
+Modified : /RambleOn/src/ramble_on_events/SelectAccountHandler.java
+
+Revision: 76
+Author: Leixiang
+Date: Sunday, April 14, 2013 5:54:08 PM
+Message:
+I created worldTreehandler to response user's clicking on world tree.
+I also modeified Ramble_On package to display labels like fastestime, modes, etc.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+Added : /RambleOn/src/ramble_on_events/WorldTreeHandler.java
+
+Revision: 75
+Author: Leixiang
+Date: Sunday, April 14, 2013 4:57:04 PM
+Message:
+I created SelectAccountHandler to response user's clicking on select Button.
+----
+Added : /RambleOn/src/ramble_on_events/SelectAccountHandler.java
+
+Revision: 74
+Author: Leixiang
+Date: Sunday, April 14, 2013 3:27:54 PM
+Message:
+I modified handlers and classes in Ramble_on packages to set GUI controls visible in proper ways.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on_events/GoBackHandler.java
+Modified : /RambleOn/src/ramble_on_events/GoForwardHandler.java
+Modified : /RambleOn/src/ramble_on_events/GoToAccountCreationHandler.java
+
+Revision: 73
+Author: Leixiang
+Date: Sunday, April 14, 2013 11:51:56 AM
+Message:
+I created another handler to response user's clicking on create button.
+I also modified createnewaccounthandler to get the text from the textfield.
+----
+Modified : /RambleOn/src/ramble_on_events/CreateNewAccountHandler.java
+Added : /RambleOn/src/ramble_on_events/GoToAccountCreationHandler.java
+
+Revision: 72
+Author: Leixiang
+Date: Sunday, April 14, 2013 1:42:03 AM
+Message:
+I delete GoBackOneScreen class because I change the name.
+I add buttons to RambleOn class, so i can let the users to click buttons.
+I add another method in RambleOnPanel to render the screen of AccountCreationScreen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOn.java
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Modified : /RambleOn/src/ramble_on/RambleOnPanel.java
+Deleted : /RambleOn/src/ramble_on_events/GoBackOneScreen.java
+
+Revision: 71
+Author: Leixiang
+Date: Sunday, April 14, 2013 12:31:52 AM
+Message:
+I rename the handler for going back one screen.
+----
+Added : /RambleOn/src/ramble_on_events/GoBackHandler.java (Copy from path: /RambleOn/src/ramble_on_events/GoBackOneScreen.java, Revision, 69)
+
+Revision: 70
+Author: Leixiang
+Date: Sunday, April 14, 2013 12:23:37 AM
+Message:
+I add some constants in RambleOnSetting class to load background images.
+
+----
+Modified : /RambleOn/src/ramble_on/RambleOnSettings.java
+
+Revision: 69
+Author: Leixiang
+Date: Sunday, April 14, 2013 12:06:36 AM
+Message:
+I created GoBackOneScreen to handle users for clicking buttons that make the application go back one screen.
+I also implemented another method in RambleOnDataModel to go back one screen.
+----
+Modified : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Added : /RambleOn/src/ramble_on_events/GoBackOneScreen.java
+
+Revision: 68
+Author: Leixiang
+Date: Sunday, April 14, 2013 12:02:06 AM
+Message:
+I created CreateNewAccountHandler to handle users for clicking a create account button.
+----
+Added : /RambleOn/src/ramble_on_events/CreateNewAccountHandler.java
+
+Revision: 67
+Author: Leixiang
+Date: Saturday, April 13, 2013 7:26:05 PM
+Message:
+I add a few more constants to RambleOnSettings.
+I implemented another method in RambleOnPanel to render the screen of accounts.
+I add AccountManager instance in RambleOnDataModel, so I access all the accounts.
+I also change RambleOn a little to load more images.
+I also added another package to hold all the event handler. 
+I created a handler to make our application go to next game screen.
+
+----
+Added : /RambleOn/src/ramble_on
+Added : /RambleOn/src/ramble_on/GameScreenState.java
+Added : /RambleOn/src/ramble_on/RambleOn.java
+Added : /RambleOn/src/ramble_on/RambleOnDataModel.java
+Added : /RambleOn/src/ramble_on/RambleOnPanel.java
+Added : /RambleOn/src/ramble_on/RambleOnSettings.java
+Added : /RambleOn/src/ramble_on_events
+Added : /RambleOn/src/ramble_on_events/GoForwardHandler.java
+
+Revision: 66
+Author: Leixiang
+Date: Saturday, April 13, 2013 7:26:04 PM
+Message:
+I add a few more constants to RambleOnSettings.
+I implemented another method in RambleOnPanel to render the screen of accounts.
+I add AccountManager instance in RambleOnDataModel, so I access all the accounts.
+I also change RambleOn a little to load more images.
+I also added another package to hold all the event handler. 
+I created a handler to make our application go to next game screen.
+
+----
+Deleted : /RambleOn/src/rambleon
+
+Revision: 52
+Author: Leixiang
+Date: Friday, April 12, 2013 6:25:20 PM
+Message:
+I add more constants to RambleOnSetting class.
+I created GameScreenState class to indicate which screen the game is in, so our application will render correct screen.
+----
+Added : /RambleOn/src/rambleon/GameScreenState.java
+Modified : /RambleOn/src/rambleon/RambleOnSettings.java
+
+Revision: 48
+Author: Leixiang
+Date: Friday, April 12, 2013 4:40:03 PM
+Message:
+Welcome file is add into the directory. I also add some constants into RambleOnSettings class to help us build the application. I also modified the RambleOnPanel class to render the welcome screen. Now our application will start with a welcome image on it, but users can't do anything with it now.
+Besides that, I created RambleOnDataModel class to handle all the data for our RambleOn game. Right now, it's empty, but I will add a little to it as I go along.
+I created some folders to store our data.
+I also implements some methods for RambleOn to start the program, but it only shows the welcome image right now.
+----
+Modified : /RambleOn
+Added : /RambleOn/data
+Added : /RambleOn/data/gui
+Added : /RambleOn/data/gui/Welcome.png
+Modified : /RambleOn/nbproject/project.properties
+Modified : /RambleOn/src/rambleon/RambleOn.java
+Added : /RambleOn/src/rambleon/RambleOnDataModel.java
+Modified : /RambleOn/src/rambleon/RambleOnPanel.java
+Modified : /RambleOn/src/rambleon/RambleOnSettings.java
+
+Revision: 47
+Author: Leixiang
+Date: Friday, April 12, 2013 3:54:16 PM
+Message:
+I add RambleOnSettings class. This class will include all the constants that will be used for our game application.
+----
+Added : /RambleOn/src/rambleon/RambleOnSettings.java
+
+Revision: 46
+Author: Leixiang
+Date: Friday, April 12, 2013 3:50:57 PM
+Message:
+This is the class that renders our RambleOnr game application. At this time, it will render the welcome screen, and screens that relative to accounts.
+----
+Added : /RambleOn/src/rambleon/RambleOnPanel.java
+
+Revision: 45
+Author: Leixiang
+Date: Friday, April 12, 2013 3:38:20 PM
+Message:
+This application will serve as test driver at this time. After done HW# 5, we will change it to as our application to interact with users.
+Besides it serves as test driver, it will also do something rendering, and it will have more stuff to render after HW 5.
+----
+Added : /RambleOn/build.xml
+Added : /RambleOn/manifest.mf
+Added : /RambleOn/nbproject
+Added : /RambleOn/nbproject/build-impl.xml
+Added : /RambleOn/nbproject/genfiles.properties
+Added : /RambleOn/nbproject/project.properties
+Added : /RambleOn/nbproject/project.xml
+Added : /RambleOn/src
+Added : /RambleOn/src/rambleon
+Added : /RambleOn/src/rambleon/RambleOn.java
+
+Revision: 44
+Author: Leixiang
+Date: Friday, April 12, 2013 3:38:16 PM
+Message:
+This application will serve as test driver at this time. After done HW# 5, we will change it to as our application to interact with users.
+Besides it serves as test driver, it will al
+so do something rendering, and it will have more stuff to render after HW 5.
+----
+Added : /RambleOn
+
+Revision: 91
+Author: Leixiang
+Date: Tuesday, April 16, 2013 3:17:19 AM
+Message:
+I modified the exporter class to save the accounts properly!
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 88
+Author: Leixiang
+Date: Monday, April 15, 2013 8:22:56 AM
+Message:
+Now the accounts works good!
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 83
+Author: Leixiang
+Date: Monday, April 15, 2013 1:54:04 AM
+Message:
+I modified hasAccount method to make it case-insensitive
+----
+Modified : /RambleOnAccounts
+Added : /RambleOnAccounts/data/John.txt
+Added : /RambleOnAccounts/data/Leixiang Wu.txt
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+
+Revision: 81
+Author: Leixiang
+Date: Monday, April 15, 2013 12:13:42 AM
+Message:
+I added additional method to Account for getting all the regions that this account has played.
+In addition to that, I added two text files in here to test the ability of reading from files. However, the save function may or may not work because I haven't tested it yet.
+Besides that, I modified AccountsImporterExporter to load the accounts data properly.
+I also add an instance and methods to AccountManager for directly accessing a list of account names. Doing this way, it will help me to show the list of names more easily.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 65
+Author: Leixiang
+Date: Saturday, April 13, 2013 6:11:01 PM
+Message:
+I change the return type of save and load. I simply change it to void to make things easier.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+
+Revision: 64
+Author: Leixiang
+Date: Saturday, April 13, 2013 6:10:20 PM
+Message:
+I change the name of methods a little bit. 
+I also implemented AccountImporterExporter save method. Now it can save the accounts into text files. However, I didn't test it yet. I still need to make a test driver to test it. So I can make sure that it saves successfully.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 63
+Author: Leixiang
+Date: Saturday, April 13, 2013 5:49:56 PM
+Message:
+Again, I add another method to Account class to get the number of modes that the account has played for a region.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+
+Revision: 62
+Author: Leixiang
+Date: Saturday, April 13, 2013 5:13:48 PM
+Message:
+I add another method to AccountManager so I can know the how many accounts are in Account Manager.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+
+Revision: 61
+Author: Leixiang
+Date: Saturday, April 13, 2013 5:13:06 PM
+Message:
+I add another method to Account, so I can access to all the regions that this account played.
+I implement some of save method in accountImporterExporter. Right now, it can only write the accountname, the number of regions that this account played. However, it can't write the region stats right now, so I need to implement this later.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 60
+Author: Leixiang
+Date: Saturday, April 13, 2013 4:40:06 PM
+Message:
+I add another instance to Account class. That instance contains the list of regions that this account played. By doing so, I can k now whether a region has been played before or not and the number of regions that this account played.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+
+Revision: 59
+Author: Leixiang
+Date: Saturday, April 13, 2013 3:57:39 PM
+Message:
+I add a method to AccountManager so that it can tell us how many accounts is the manager.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 58
+Author: Leixiang
+Date: Saturday, April 13, 2013 3:44:36 PM
+Message:
+Now the AccountsImporterExporter class can load the accounts data from the specific format text files. However, I didn't test it yet. So it might not work as I wanted it to be.In addition to that, I didn't implement save method, so I still need to implement that.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 57
+Author: Leixiang
+Date: Saturday, April 13, 2013 2:33:51 PM
+Message:
+I change the whole content of Account class, because the original function can only access records for one mode. Now, it can access to records for each mode.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 56
+Author: Leixiang
+Date: Saturday, April 13, 2013 2:20:01 PM
+Message:
+Now, I want to change the format of Account. Because the original can only record one mode. Now I add another class called RegionStats, so I can access stats for four mode. RegionStats is a simply a class that contains information about a player stats for a specific region. It has accessor and changing methods. 
+----
+Added : /RambleOnAccounts/src/ramble_on_account/RegionStats.java
+
+Revision: 55
+Author: Leixiang
+Date: Saturday, April 13, 2013 1:28:55 AM
+Message:
+I add a folder to this project to store the accounts data files inside of it, so I can load these accounts more easily.
+I implemented a part of load account method. Right now, that method can only go into my folder and gain all files that are in the folder. However, the method can't load the accounts into the account manager yet.
+----
+Added : /RambleOnAccounts/data
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountSchema.xsd
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 54
+Author: Leixiang
+Date: Friday, April 12, 2013 7:55:22 PM
+Message:
+I implemented the AccountSchema which describes the format of our account xml file. However, the accountschema might not work because it's my first time to implement an xsd. So I have to check to make sure that it's correct.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountSchema.xsd
+
+Revision: 53
+Author: Leixiang
+Date: Friday, April 12, 2013 7:17:34 PM
+Message:
+I add AccountSchema to describe the format to be used for reading and writing XML files that will store our account data.
+----
+Added : /RambleOnAccounts/src/ramble_on_account/AccountSchema.xsd
+
+Revision: 51
+Author: Leixiang
+Date: Friday, April 12, 2013 6:21:18 PM
+Message:
+I implemented all the necessary methods for AccountManager. For example, getting account, save accounts, load accounts and other features. Now I add another class called AccountsImporterExporter, this class is going be responsible for loading accounts and save accounts to a file.
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+Added : /RambleOnAccounts/src/ramble_on_account/AccountsImporterExporter.java
+
+Revision: 50
+Author: Leixiang
+Date: Friday, April 12, 2013 6:06:15 PM
+Message:
+I created AccountManager for managing accounts. It provides functions to change accounts information and access accounts.
+----
+Added : /RambleOnAccounts/src/ramble_on_account/AccountManager.java
+
+Revision: 49
+Author: Leixiang
+Date: Friday, April 12, 2013 6:03:04 PM
+Message:
+I updated Account class. Now this class has a name for an account, and other informations about this account. This class has accessor and changing method to change and gain the account information. 
+----
+Modified : /RambleOnAccounts/src/ramble_on_account/Account.java
+
+Revision: 43
+Author: Leixiang
+Date: Friday, April 12, 2013 3:30:14 PM
+Message:
+This framework will serve as the accounts management systems.
+This framework will keep accounts with records, store all accounts data, write and read accounts data from and to files.
+Other classes can use this framework to draw accounts data and view them on the screen.
+----
+Added : /RambleOnAccounts/build.xml
+Added : /RambleOnAccounts/manifest.mf
+Added : /RambleOnAccounts/nbproject
+Added : /RambleOnAccounts/nbproject/build-impl.xml
+Added : /RambleOnAccounts/nbproject/genfiles.properties
+Added : /RambleOnAccounts/nbproject/project.properties
+Added : /RambleOnAccounts/nbproject/project.xml
+Added : /RambleOnAccounts/src
+Added : /RambleOnAccounts/src/ramble_on_account
+Added : /RambleOnAccounts/src/ramble_on_account/Account.java
+
+Revision: 42
+Author: Leixiang
+Date: Friday, April 12, 2013 3:29:56 PM
+Message:
+This framework will serve as the accounts management systems.
+This framework will keep accounts with records, store all accounts data, write and read accounts data from and to files.
+Other classes can use this framework to draw accounts data and view them on the screen.
+----
+Added : /RambleOnAccounts
+
+Revision: 211
+Author: Leixiang
+Date: Monday, May 13, 2013 2:28:30 AM
+Message:
+The red region bug was fixed and the anthem bug was fixed. Now the user should be able to play the game. However, it will not record the game stats, so I still have to implement methods to write the player's stats.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataManager.java
+
+Revision: 204
+Author: Leixiang
+Date: Friday, May 10, 2013 2:46:20 PM
+Message:
+Now the uesr is able to play capital mode without any problem.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 202
+Author: Leixiang
+Date: Friday, May 10, 2013 2:02:35 PM
+Message:
+Now the user is able to play leader mode. The stack will have leader images and the name next to the image.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/DirectoryIsMissingException.java
+
+Revision: 196
+Author: Leixiang
+Date: Thursday, May 09, 2013 9:54:38 PM
+Message:
+I changed these classes to load region data properly. Before, it's hard to disable buttons when seeing bad data.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/BadXMLDataException.java
+Deleted : /RegionData/src/region_data_exceptions/MissingXMLDataException.java
+
+Revision: 195
+Author: Leixiang
+Date: Thursday, May 09, 2013 8:18:45 PM
+Message:
+I created another exception class to indicate RGB or Region names are missing.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/BadXMLDataException.java
+Modified : /RegionData/src/region_data_exceptions/MissingXMLDataException.java
+
+Revision: 187
+Author: Leixiang
+Date: Monday, May 06, 2013 1:46:58 PM
+Message:
+Now loading bad data will trigger disabling mode buttons. So I need to implement disable methods.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 185
+Author: Leixiang
+Date: Monday, May 06, 2013 1:30:11 PM
+Message:
+I change the manager a little to load the leader images and flag images more quickly.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 184
+Author: Leixiang
+Date: Monday, May 06, 2013 1:03:06 PM
+Message:
+I change the name of ImagesNotFoundException class to ImageNotFoundException.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataManager.java
+Modified : /RegionData/src/region_data_exceptions/AnthemIsMissingException.java
+Added : /RegionData/src/region_data_exceptions/ImageNotFoundException.java (Copy from path: /RegionData/src/region_data_exceptions/ImagesNotFoundException.java, Revision, 179)
+Deleted : /RegionData/src/region_data_exceptions/ImagesNotFoundException.java
+
+Revision: 172
+Author: Leixiang
+Date: Saturday, May 04, 2013 11:53:51 PM
+Message:
+I added a few methods to access all the subregions in each data structure.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataManager.java
+Modified : /RegionData/src/region_data_exceptions/FileIsMissingException.java
+
+Revision: 161
+Author: Leixiang
+Date: Saturday, May 04, 2013 4:55:34 PM
+Message:
+I added another exception class to handle the anthem file is missing exception.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/AnthemIsMissingException.java
+
+Revision: 156
+Author: Leixiang
+Date: Wednesday, May 01, 2013 10:52:19 AM
+Message:
+I change the order of loading region data. It was loading xml, map, and anthem first. Then I decide to finishing XML first and do the rest of data at the end.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/MissingXMLDataException.java
+
+Revision: 153
+Author: Leixiang
+Date: Wednesday, May 01, 2013 6:03:02 AM
+Message:
+Right now, every class of my library has javadoc and other programmers can fully understand them by following the comments.
+----
+Modified : /RegionData/src/region_data_exceptions/DirectoryIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/FileIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/ImageInvalidDimensionException.java
+Modified : /RegionData/src/region_data_exceptions/ImagesNotFoundException.java
+Modified : /RegionData/src/region_data_exceptions/InvalidRGBValuesException.java
+Modified : /RegionData/src/region_data_exceptions/MissingXMLDataException.java
+
+Revision: 152
+Author: Leixiang
+Date: Wednesday, May 01, 2013 5:50:45 AM
+Message:
+Okay, region_data package has a full JavaDoc right now and Exception classes also need comments.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 151
+Author: Leixiang
+Date: Wednesday, May 01, 2013 5:48:26 AM
+Message:
+The main comments are done and I still need to add some comments to some codes to make clear that other programmers can understand.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 150
+Author: Leixiang
+Date: Wednesday, May 01, 2013 5:47:05 AM
+Message:
+I deleted many exception classes and combine similar exceptions classes into one. In this way, I won't have too many catch exception clause.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+Deleted : /RegionData/src/region_data_exceptions/AnthemIsMissingException.java
+Deleted : /RegionData/src/region_data_exceptions/CapitalIsMissingException.java
+Added : /RegionData/src/region_data_exceptions/FileIsMissingException.java (Copy from path: /RegionData/src/region_data_exceptions/AnthemIsMissingException.java, Revision, 133)
+Deleted : /RegionData/src/region_data_exceptions/LeaderNameIsMissingException.java
+Deleted : /RegionData/src/region_data_exceptions/MapIsMissingException.java
+Added : /RegionData/src/region_data_exceptions/MissingXMLDataException.java (Copy from path: /RegionData/src/region_data_exceptions/CapitalIsMissingException.java, Revision, 141)
+Deleted : /RegionData/src/region_data_exceptions/RGBValuesAreMissingException.java
+Deleted : /RegionData/src/region_data_exceptions/RegionNameIsMissingException.java
+Deleted : /RegionData/src/region_data_exceptions/RegionXMLFileNotFoundException.java
+
+Revision: 149
+Author: Leixiang
+Date: Wednesday, May 01, 2013 4:23:53 AM
+Message:
+I eliminated two exceptions classes because there are too many exceptions classes and I need to remove more.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Deleted : /RegionData/src/region_data_exceptions/FlagImageInvalidDimensionException.java
+Deleted : /RegionData/src/region_data_exceptions/FlagImagesNotFoundException.java
+Added : /RegionData/src/region_data_exceptions/ImageInvalidDimensionException.java (Copy from path: /RegionData/src/region_data_exceptions/LeaderImageInvalidDimensionException.java, Revision, 133)
+Added : /RegionData/src/region_data_exceptions/ImagesNotFoundException.java (Copy from path: /RegionData/src/region_data_exceptions/LeaderImagesNotFoundException.java, Revision, 143)
+Deleted : /RegionData/src/region_data_exceptions/LeaderImageInvalidDimensionException.java
+Deleted : /RegionData/src/region_data_exceptions/LeaderImagesNotFoundException.java
+
+Revision: 148
+Author: Leixiang
+Date: Wednesday, May 01, 2013 3:52:36 AM
+Message:
+Now the comments for RegionDataManager are also done. The only class that still needs comments is RegionDataLoader.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataManager.java
+Modified : /RegionData/src/region_data_exceptions/FlagImagesNotFoundException.java
+
+Revision: 147
+Author: Leixiang
+Date: Wednesday, May 01, 2013 2:37:03 AM
+Message:
+Now the interface RegionDataImporter has comments for every method.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+
+Revision: 146
+Author: Leixiang
+Date: Wednesday, May 01, 2013 2:22:39 AM
+Message:
+I provided Javadoc for RegionDataLoaderSetting, but it's the only one.
+----
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 143
+Author: Leixiang
+Date: Wednesday, May 01, 2013 1:32:13 AM
+Message:
+Now I totally change the way that my method loads images. Originally, it can only load one image because it only takes image path name and convert that file into a image. Right now, it takes directory and add all the leader or flag images into the data manager.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Deleted : /RegionData/src/region_data_exceptions/FlagImageNotFoundException.java
+Added : /RegionData/src/region_data_exceptions/FlagImagesNotFoundException.java (Copy from path: /RegionData/src/region_data_exceptions/FlagImageNotFoundException.java, Revision, 133)
+Deleted : /RegionData/src/region_data_exceptions/LeaderImageNotFoundException.java
+Added : /RegionData/src/region_data_exceptions/LeaderImagesNotFoundException.java (Copy from path: /RegionData/src/region_data_exceptions/LeaderImageNotFoundException.java, Revision, 133)
+
+Revision: 142
+Author: Leixiang
+Date: Wednesday, May 01, 2013 12:09:50 AM
+Message:
+I added another exception class to indicate that the RGB values are missing for a region.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/RGBValuesAreMissingException.java
+
+Revision: 141
+Author: Leixiang
+Date: Wednesday, May 01, 2013 12:01:57 AM
+Message:
+I deleted XMLAttribute exception because it's basically can converted to NameMissingException. 
+I added another capitalException to indicate the error that the capital is missing.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/CapitalIsMissingException.java
+Deleted : /RegionData/src/region_data_exceptions/XMLAttributeIsMissingException.java
+
+Revision: 140
+Author: Leixiang
+Date: Tuesday, April 30, 2013 11:53:19 PM
+Message:
+Now the loading region data method can loads provinces as subregions correctly.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 139
+Author: Leixiang
+Date: Tuesday, April 30, 2013 11:40:15 PM
+Message:
+The algorithm of loading region data is wrong because when it loads country region data, my method treats it as a continent instead of a country. Thus, I need to create another method of loading a region as a country.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 137
+Author: Leixiang
+Date: Tuesday, April 30, 2013 11:23:46 PM
+Message:
+Now the loading region data method is ready to go.!
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 136
+Author: Leixiang
+Date: Tuesday, April 30, 2013 10:22:14 PM
+Message:
+Now loading whatever XML will check whether any attribute is missing first. Thus it will not return  null pointer.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/XMLAttributeIsMissingException.java
+
+Revision: 135
+Author: Leixiang
+Date: Tuesday, April 30, 2013 10:07:42 PM
+Message:
+I just added additional if statements to check that missing attribute in the region The World would throw an exception to the programmer who is using this method. Just a reminder that sub region didn't have if statements to check XML attributes and I still need to add that.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 134
+Author: Leixiang
+Date: Tuesday, April 30, 2013 9:52:00 PM
+Message:
+I created another exception class to notify the user that XML file is missing an attribute that is necessary.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/XMLAttributeIsMissingException.java
+
+Revision: 133
+Author: Leixiang
+Date: Tuesday, April 30, 2013 9:18:34 PM
+Message:
+I change the method toString for every exception class to print out a nice and clear message.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/AnthemIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/DirectoryIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/FlagImageInvalidDimensionException.java
+Modified : /RegionData/src/region_data_exceptions/FlagImageNotFoundException.java
+Modified : /RegionData/src/region_data_exceptions/LeaderImageInvalidDimensionException.java
+Modified : /RegionData/src/region_data_exceptions/LeaderImageNotFoundException.java
+Modified : /RegionData/src/region_data_exceptions/LeaderNameIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/MapIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/RegionNameIsMissingException.java
+Modified : /RegionData/src/region_data_exceptions/RegionXMLFileNotFoundException.java
+
+Revision: 132
+Author: Leixiang
+Date: Saturday, April 27, 2013 11:19:18 PM
+Message:
+loadRegionData in RegionDataLoader wasn't able to get the xml, map, and anthem files properly, so I changed the codes and make sure it loads properly.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 131
+Author: Leixiang
+Date: Saturday, April 27, 2013 7:45:19 PM
+Message:
+RegionDataLoaderSetting has a few more constants.
+Now, loadRegionData in RegionDataLoader can load the map and anthem.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 130
+Author: Leixiang
+Date: Saturday, April 27, 2013 7:13:21 PM
+Message:
+I added another exception class to notify the user that the directory is not found.
+----
+Added : /RegionData/src/region_data_exceptions/DirectoryIsMissingException.java
+
+Revision: 129
+Author: Leixiang
+Date: Saturday, April 27, 2013 7:09:27 PM
+Message:
+I added another instance variable in RegionDataManager to hold the image of map.
+----
+Modified : /RegionData/src/region_data/RegionDataManager.java
+Deleted : /RegionData/src/region_data_exceptions/MapIsMissingExceptioin.java
+Added : /RegionData/src/region_data_exceptions/MapIsMissingException.java (Copy from path: /RegionData/src/region_data_exceptions/MapIsMissingExceptioin.java, Revision, 128)
+
+Revision: 128
+Author: Leixiang
+Date: Saturday, April 27, 2013 6:47:58 PM
+Message:
+I created two additional exceptions classes for handling errors that the map is missing and anthem is missing.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/AnthemIsMissingException.java
+Added : /RegionData/src/region_data_exceptions/MapIsMissingExceptioin.java
+
+Revision: 125
+Author: Leixiang
+Date: Saturday, April 27, 2013 3:20:36 PM
+Message:
+Loading flags and leader images are failing. These two methods needs to be fixed.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 124
+Author: Leixiang
+Date: Saturday, April 27, 2013 3:05:56 PM
+Message:
+Now the RegionDataLoader class is able to load xml files, flag images, leader images properly. It still needs to be tested to make sure that it will load everything properly.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 123
+Author: Leixiang
+Date: Saturday, April 27, 2013 2:45:52 PM
+Message:
+I change the region data manage a lot. I added a few data structures to hold data, so it can access the data more quickly. However, it adds a lot confusion. Right now, if it knows the region, it can access leader img, name, region flag img, region capital etc and vise verse.
+----
+Modified : /RegionData/src/region_data/RegionDataManager.java
+
+Revision: 122
+Author: Leixiang
+Date: Saturday, April 27, 2013 2:05:42 PM
+Message:
+I added another exception in the loading xml file method in the interface, so I can add another exception in my xml loading method. 
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+
+Revision: 121
+Author: Leixiang
+Date: Saturday, April 27, 2013 1:47:02 PM
+Message:
+I created another exception class to handle the error when the leader name is not included in the xml file.
+----
+Added : /RegionData/src/region_data_exceptions/LeaderNameIsMissingException.java
+
+Revision: 120
+Author: Leixiang
+Date: Friday, April 26, 2013 9:18:49 PM
+Message:
+Now the world loading method is ready to go!
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 119
+Author: Leixiang
+Date: Friday, April 26, 2013 9:12:25 PM
+Message:
+Now the loading world xml file can check whether the given xml file has a valid RGB values.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 118
+Author: Leixiang
+Date: Friday, April 26, 2013 8:54:39 PM
+Message:
+Now the RegionNameIsMissingException is implemented and ready to be used in the loading method.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data_exceptions/RegionNameIsMissingException.java
+
+Revision: 117
+Author: Leixiang
+Date: Friday, April 26, 2013 8:50:51 PM
+Message:
+I added another exception class called regionnameismissingexception. This exception class will handle the error that region name is not in the xml file, but it's not implemented yet.
+----
+Added : /RegionData/src/region_data_exceptions/RegionNameIsMissingException.java
+
+Revision: 116
+Author: Leixiang
+Date: Friday, April 26, 2013 8:28:20 PM
+Message:
+I changed the names of some arguments of methods, so other programmers can understand methods more easily.
+Besides that, I added a few more constants to setting class to help me load data.
+Also, I change the loading xml file method. Now it will check to see what region data that wants to be loaded. 
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 115
+Author: Leixiang
+Date: Friday, April 26, 2013 8:07:42 PM
+Message:
+I added two exceptions to the header of loading xml files method.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 114
+Author: Leixiang
+Date: Friday, April 26, 2013 6:26:03 PM
+Message:
+Method for loading leader images is also implemented. It still need to add documentation, comments and other things. Also, by saying it's implemented doesn't mean that the method works perfectly. It might still need to be changed later.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 113
+Author: Leixiang
+Date: Friday, April 26, 2013 6:13:30 PM
+Message:
+Now the loader can load the flag. However, it still might give me errors because I didn't test it yet.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Modified : /RegionData/src/region_data/RegionDataManager.java
+
+Revision: 111
+Author: Leixiang
+Date: Friday, April 26, 2013 3:57:50 PM
+Message:
+I created three new exception classes to handle the following errors: leaderimage has an invalid dimension, flagimage has an invalid dimension and regionXMLfile not found. These are errors that the loading process may encounter.
+----
+Added : /RegionData/src/region_data_exceptions/FlagImageInvalidDimensionException.java
+Modified : /RegionData/src/region_data_exceptions/InvalidRGBValuesException.java
+Added : /RegionData/src/region_data_exceptions/LeaderImageInvalidDimensionException.java
+Added : /RegionData/src/region_data_exceptions/RegionXMLFileNotFoundException.java
+
+Revision: 110
+Author: Leixiang
+Date: Friday, April 26, 2013 3:03:05 PM
+Message:
+I add additional two methods to interface RegionDataImporter to import flag images and leader images.
+Because the RegionDataImporter family has two more methods, RegionDataLoader also has two additional methods.
+Besides that, I added another exception class for handling invalid RGB values.
+----
+Modified : /RegionData
+Modified : /RegionData/nbproject/project.properties
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+Added : /RegionData/src/region_data_exceptions/InvalidRGBValuesException.java
+
+Revision: 105
+Author: Leixiang
+Date: Friday, April 26, 2013 11:08:00 AM
+Message:
+I added another leaderimagenotfoundexception class for representing the occasion where the leader image is not found and it's implemented. Thus, it's ready to be used anytime.
+----
+Added : /RegionData/src/region_data_exceptions/LeaderImageNotFoundException.java
+
+Revision: 104
+Author: Leixiang
+Date: Friday, April 26, 2013 11:03:54 AM
+Message:
+Now the flagnotfoundexception class is implemented and can be thrown as an special exception for not finding a flag image for a region.
+----
+Modified : /RegionData/src/region_data_exceptions/FlagImageNotFoundException.java
+
+Revision: 103
+Author: Leixiang
+Date: Thursday, April 25, 2013 11:28:46 PM
+Message:
+I created this exception package to store all the exceptions that loading process might encounter.
+I created flagnotfoundexception class for notifying other programmers that the flag image is not found. However, it's not implemented.
+----
+Added : /RegionData/src/region_data_exceptions
+Added : /RegionData/src/region_data_exceptions/FlagImageNotFoundException.java
+
+Revision: 102
+Author: Leixiang
+Date: Thursday, April 25, 2013 11:12:45 PM
+Message:
+I made comments for some important code lines, so other programmers can follow my codes more easily.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 101
+Author: Leixiang
+Date: Thursday, April 25, 2013 11:04:52 PM
+Message:
+Now I implement partial method of loadRegionData. It can only load the world region data xml file right now, but not other regions. I didn't test whether it will successfully load or not, so I still need to test it.
+----
+Modified : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 100
+Author: Leixiang
+Date: Thursday, April 25, 2013 10:06:15 PM
+Message:
+I created this setting class to store all the constants that I will use for load data from XML files.
+----
+Added : /RegionData/src/region_data/RegionDataLoaderSettings.java
+
+Revision: 99
+Author: Leixiang
+Date: Thursday, April 25, 2013 9:28:16 PM
+Message:
+Now the RegionDataManager has methods to hold the data for a region, including subregions, its anthem, flag, etc. However, although some methods are implemented, I might add additional methods to it. So I can manage the data more efficiently.
+----
+Modified : /RegionData/src/region_data/RegionDataManager.java
+
+Revision: 98
+Author: Leixiang
+Date: Thursday, April 25, 2013 8:50:52 PM
+Message:
+I created another class called RegionDataManager. This class will manage the data that the user's current playing region. So we can more easily manage our region data if we have this class.
+----
+Added : /RegionData/src/region_data/RegionDataManager.java
+
+Revision: 97
+Author: Leixiang
+Date: Saturday, April 20, 2013 2:33:22 AM
+Message:
+I change the argument names in RegionDataImporter interface.
+I created this RegionDataLoader class to implement RegionDataImporter. This class basically implement the loadRegion method.
+
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+Added : /RegionData/src/region_data/RegionDataLoader.java
+
+Revision: 96
+Author: Leixiang
+Date: Saturday, April 20, 2013 2:30:10 AM
+Message:
+I created this interface to serve as the family that would be used to load region data for the game. Other programmers can implement this interface easily if they want to load the data differently.
+----
+Modified : /RegionData/src/region_data/RegionDataImporter.java
+
+Revision: 95
+Author: Leixiang
+Date: Saturday, April 20, 2013 2:28:10 AM
+Message:
+This project will serve as my region data-loading library.
+----
+Added : /RegionData/build.xml
+Added : /RegionData/manifest.mf
+Added : /RegionData/nbproject
+Added : /RegionData/nbproject/build-impl.xml
+Added : /RegionData/nbproject/genfiles.properties
+Added : /RegionData/nbproject/project.properties
+Added : /RegionData/nbproject/project.xml
+Added : /RegionData/src
+Added : /RegionData/src/region_data
+Added : /RegionData/src/region_data/RegionDataImporter.java
+
+Revision: 94
+Author: Leixiang
+Date: Saturday, April 20, 2013 2:28:07 AM
+Message:
+This project will serve as my region data-loading library.
+----
+Added : /RegionData
+
+

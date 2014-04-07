@@ -1,0 +1,94 @@
+package ramble_on;
+
+import javax.swing.JOptionPane;
+import mini_game.MiniGame;
+import mini_game.MiniGameDataModel;
+import ramble_on_account.AccountManager;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnDataModel extends MiniGameDataModel {
+
+    private AccountManager accountManager;
+    private GameScreenState screenState;
+
+    /**
+     *
+     *
+     */
+    public RambleOnDataModel() {
+        accountManager = new AccountManager();
+        screenState = GameScreenState.WELCOME_SCREEN;
+    }
+
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public GameScreenState getScreenState() {
+        return screenState;
+    }
+
+    public boolean isWelcomeScreen() {
+        return screenState == GameScreenState.WELCOME_SCREEN;
+    }
+
+    public boolean isAccountScreen() {
+        return screenState == GameScreenState.ACCOUNT_SCREEN;
+    }
+
+    public boolean isAccountCreationScreen() {
+        return screenState == GameScreenState.ACCOUNT_CREATION_SCREEN;
+    }
+
+    public boolean isCurrentAccountScreen() {
+        return screenState == GameScreenState.CURRENT_ACCOUNT_SCREEN;
+    }
+
+    public void createAccount(MiniGame game) {
+        screenState = GameScreenState.ACCOUNT_CREATION_SCREEN;
+        if (!accountManager.hasAccount(null)) {
+            accountManager.addAccount(null, null);
+        } else {
+            JOptionPane.showMessageDialog(game.getCanvas(), "Account name is already existed.");
+        }
+
+    }
+
+    @Override
+    public void checkMousePressOnSprites(MiniGame game, int x, int y) {
+    }
+
+    @Override
+    public void reset(MiniGame game) {
+    }
+
+    @Override
+    public void updateAll(MiniGame game) {
+    }
+
+    @Override
+    public void updateDebugText(MiniGame game) {
+    }
+
+    public void goForwardOneScreen() {
+        if (isWelcomeScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+        }
+
+    }
+
+    public void goBackOneScreen() {
+        if (isAccountCreationScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+        } else if (isCurrentAccountScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+        }
+    }
+}

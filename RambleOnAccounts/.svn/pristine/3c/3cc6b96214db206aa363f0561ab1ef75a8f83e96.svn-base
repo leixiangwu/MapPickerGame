@@ -1,0 +1,63 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on_account;
+
+import java.util.HashMap;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class Account {
+
+    private String accountName;
+    private HashMap<String, String> numberOfTimesPlayed;
+    private HashMap<String, String> highestScore;
+    private HashMap<String, String> fastestTime;
+
+    public Account(String iniAccountName) {
+        accountName = iniAccountName;
+        numberOfTimesPlayed = new HashMap();
+        highestScore = new HashMap();
+        fastestTime = new HashMap();
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void addRegionPlayed(String regionName) {
+        numberOfTimesPlayed.put(regionName, "0");
+        highestScore.put(regionName, "0");
+        fastestTime.put(regionName, "0");
+    }
+
+    public String getNumbberOfTimesPlayed(String regionName) {
+        return numberOfTimesPlayed.get(regionName);
+    }
+
+    public String getHighestScore(String regionName) {
+        return highestScore.get(regionName);
+    }
+
+    public void getFastestTime(String regionName) {
+        fastestTime.get(regionName);
+    }
+
+    public void updateNumberOfTimesPlayed(String regionName, String newNumber) {
+        numberOfTimesPlayed.remove(regionName);
+        numberOfTimesPlayed.put(regionName, newNumber);
+    }
+
+    public void updateHighestScore(String regionName, String newScore) {
+        highestScore.remove(regionName);
+        highestScore.put(regionName, newScore);
+    }
+
+    public void updateFastestTime(String regionName, String newTime) {
+        fastestTime.remove(regionName);
+        fastestTime.put(regionName, newTime);
+    }
+}

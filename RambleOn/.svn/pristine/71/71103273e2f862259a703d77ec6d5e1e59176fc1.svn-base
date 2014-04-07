@@ -1,0 +1,123 @@
+package ramble_on;
+
+import java.awt.Font;
+import java.awt.Insets;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnSettings {
+
+    //MUSIC FILE SETTINGS
+    public static final String AUDIO_DIR = "./data/audio/";
+    public static final String STANDARD_VICTORY_SONG_FILE_NAME = AUDIO_DIR + "StandardVictorySong.mid";
+    public static final String BACKGROUND_MUSIC_FILE_NAME = AUDIO_DIR + "BackgroundMusic.mid";
+    public static final String STANDARD_VICTORY_SONG = "STANDARD_VICTORY_SONG";
+    public static final String BACKGROUND_MUSIC = "BackgroundMusic";
+    public static final String FAILURE_FILE_NAME = AUDIO_DIR + "Failure.wav";
+    public static final String TRACKED_FILE_NAME = AUDIO_DIR + "Tracked.wav";
+    public static final String AFGHAN_ANTHEM = "AFGHAN_ANTHEM";
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAILURE = "FAILURE";
+    public static final String TRACKED_SONG = "TRACKED_SONG";
+    
+    //XSD FILE PATH
+    public static final String xmlSchemaNameAndPath = "./data/The World/RegionData.xsd";
+    
+    
+    public static final int SPLIT_PANE_LEFT_LOCATION = 200;
+    public static final String CAPITAL_MODE = "Capital Mode";
+    public static final String LEADER_MODE = "Leader Mode";
+    public static final String SUB_REGION_MODE = "Sub Region Mode";
+    public static final String FLAG_MODE = "Flag Mode";
+    public static final String ACCOUNT_LIST = "Account List";
+    public static final String ACCOUNT_CREATION_HEADER = "Account Creation";
+    public static final String NEW_ACCOUNT_MESSAGE = "Enter your new user name: ";
+    public static final Font LABEL_FONT = new Font("Serif", Font.BOLD, 30);
+    public static final String FASTEST_TIME = "Fastest Time";
+    public static final String HIGHEST_SCORE = "Leader Mode";
+    public static final String NUM_PLAYED = "Played Times";
+    
+    
+    // PATH SETTINGS FOR LOADING GUI DATA
+    public static final String DATA_PATH = "./data";
+    public static final String GUI_PATH = DATA_PATH + "/gui/";
+    
+    
+    // PATH SETTINGS FOR LOADING REGIONS DATA
+    public static final String THE_WORLD_PATH = DATA_PATH + "/The World/";
+    
+    
+    //THESE ARE IMAGES FOR RENDERING WELCOME SCREEN.
+    public static final String WELCOME_FILE_PATH = GUI_PATH + "Welcome.png";
+    public static final String GAME_ICON_FILE_PATH = GUI_PATH + "GameIcon.png";
+    
+    
+    //THESE ARE IMAGES FOR RENDERING CURRENT ACCOUNT SCREEN.
+    public static final String BACKGROUND1_FILE_PATH = GUI_PATH + "Background1.png";
+    public static final String BACKGROUND2_FILE_PATH = GUI_PATH + "Background2.png";
+    public static final String GO_FORWARD_BUTTON_FILE_PATH = GUI_PATH + "GoForward.png";
+    public static final String GO_FORWARD_BUTTON_MOUSE_OVER_FILE_PATH = GUI_PATH + "GoForwardMouseOver.png";
+    public static final String GO_BACK_BUTTON_FILE_PATH = GUI_PATH + "GoBack.png";
+    public static final String GO_BACK_BUTTON_MOUSE_OVER_FILE_PATH = GUI_PATH + "GoBackMouseOver.png";
+    
+    
+    //THESE ARE IMAGES FOR RENDERING GAME PLAY SCREEN.
+    public static final String GAME_LOGO_FILE_PATH = GUI_PATH + "GameLogo.png";
+    public static final String SUB_REGION_MODE_BUTTON_PATH = GUI_PATH + "SubRegionMode.png";
+    public static final String FLAG_MODE_BUTTON_PATH = GUI_PATH + "FlagMode.png";
+    public static final String LEADER_MODE_BUTTON_PATH = GUI_PATH + "LeaderMode.png";
+    public static final String CAPITAL_MODE_BUTTON_PATH = GUI_PATH + "CapitalMode.png";
+    
+    
+    //THESE ARE STATES OF GUI CONTROLS
+    public static final String INVISIBLE_STATE = "INVISIBLE_STATE";
+    public static final String VISIBLE_STATE = "VISIBLE_STATE";
+    public static final String DEFAULT_STATE = "DEFAULT_STATE";
+    public static final String MOUSE_OVER_STATE = "MOUSE_OVER_STATE";
+    public static final String BACKGROUND1_STATE = "BACKGROUND1_STATE";
+    public static final String BACKGROUND2_STATE = "BACKGROUND2_STATE";
+    public static final String ENABLED_STATE = "ENABLED_STATE";
+    public static final String DISABLED_STATE = "DIABLED_STATE";
+    
+    
+    //THESE ARE TYPES OF GUI CONTROLS
+    public static final String WELCOME_TYPE = "WELCOME_TYPE";
+    public static final String BACKGROUND_TYPE = "BACKGROUND_TYPE";
+    public static final String GO_FORWARD_BUTTON_TYPE = "GO_FORWARD_BUTTON_TYPE";
+    public static final String GO_BACK_BUTTON_TYPE = "GO_BACK_BUTTON_TYPE";
+    public static final String GAME_LOGO_TYPE = "GAME_LOGO_TYPE";
+    
+    
+    public static final String MAP_TYPE = "MAP_TYPE";
+    public static final String TOOLBAR_TYPE = "NORTH_TOOLBAR";
+    public static final String SUB_REGION_MODE_TYPE	= "SUB_REGION_MODE";
+    public static final String FLAG_MODE_TYPE		= "FLAG_MODE";
+    public static final String LEADER_MODE_TYPE	= "LEADER_MODE";
+    public static final String CAPITAL_MODE_TYPE		= "CAPITAL_MODE";
+	
+   
+    
+    // THESE CONSTANTS SETUP THE GAME DIMENSIONS. THE GAME WIDTH
+    // AND HEIGHT SHOULD MIRROR THE BACKGROUND IMAGE DIMENSIONS. WE
+    // WILL NOT RENDER ANYTHING OUTSIDE THOSE BOUNDS.
+    public static final int GAME_WIDTH = 1200;
+    public static final int GAME_HEIGHT = 700;
+   
+    
+    
+    // HERE ARE SOME APP-LEVEL SETTINGS, LIKE THE FRAME RATE.
+    public static final String APP_TITLE = "The Ramble On Game";
+    public static final int FRAME_RATE = 30;
+   
+    
+    // THESE ARE CONSTANTS THAT ARE USED FOR LAY OUT OUR GUI CONTROLS.
+    public static final int CONTROLS_IPADX = 5;
+    public static final int CONTROLS_IPADY = 10;
+    public static final Insets CONTROLS_INSETS = new Insets(5, 15, 5, 15);
+}

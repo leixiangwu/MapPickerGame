@@ -1,0 +1,26 @@
+package ramble_on_account;
+
+import java.io.File;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class AccountsImporterExporter {
+    
+    public AccountsImporterExporter(){
+    
+    }
+
+    public boolean loadAccounts(File fileToLoad, AccountManager aThis) {
+        return false;
+    }
+
+    public boolean saveAccounts(File fileToSave, AccountManager aThis) {
+        return false;
+    }
+}

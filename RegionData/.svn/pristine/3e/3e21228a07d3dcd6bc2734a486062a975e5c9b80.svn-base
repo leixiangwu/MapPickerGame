@@ -1,0 +1,64 @@
+package region_data;
+
+import region_data_exceptions.*;
+import xml_utilities.InvalidXMLFileFormatException;
+
+/**
+ * This interface is a family type and provides the requirements for an importer
+ * plugin to be used for loading and saving regions data from a directory, which
+ * includes xml files, images and maps. Note that this library, and thus this
+ * interface, does not have a particular XML file structure/schema. So various
+ * formats could be used, which would be up to the plugin developer.
+ *
+ * @author Leixiang Wu Stony Brook Student
+ * @Version 1.0
+ */
+public interface RegionDataImporter {
+
+    /**
+     *
+     * Loads the region data from the files in a directory and import into the
+     * regionDataManager.
+     *
+     * @param regionDirectoryPathName The directory path where the data files
+     * can be found.
+     *
+     * @param regionDataManager The data read from the data files will be loaded
+     * into this region data manager.
+     *
+     * @return true if the region loaded successfully, false otherwise.
+     */
+    public boolean loadRegionData(String regionDirectoryPathName, RegionDataManager regionDataManager) throws FileIsMissingException,
+            InvalidRGBValuesException, MissingXMLDataException, DirectoryIsMissingException,
+            InvalidXMLFileFormatException,AnthemIsMissingException;
+
+    /**
+     * Loads the flag images of sub-regions and save them into
+     * regionDataManager.
+     *
+     * @param regionDirectoryPathName The directory path where all flag images
+     * can be found.
+     *
+     * @param regionDataManager The flag images which are read from the
+     * directory will be loaded into this regionDataManager.
+     *
+     * @return true if the flag images loaded successfully, false otherwise.
+     */
+    public boolean loadRegionFlags(String regionDirectoryPathName, RegionDataManager regionDataManager) throws
+            ImageNotFoundException, ImageInvalidDimensionException, DirectoryIsMissingException;
+
+    /**
+     * Loads each sub-region leader image from regionLeaderFile into
+     * regionDataManager.
+     *
+     * @param regionLeaderFile The directory path where all the leader images
+     * can be found.
+     *
+     * @param regionDataManager The sub-region leader images read from the
+     * directory will be loaded into this regionDataManager
+     *
+     * @return true if the leader images loaded successfully, false otherwise.
+     */
+    public boolean loadRegionLeaderImgs(String regionDirectoryPathName, RegionDataManager regionDataManager)
+            throws ImageNotFoundException, ImageInvalidDimensionException, DirectoryIsMissingException;
+}

@@ -1,0 +1,58 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on_events;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import ramble_on.RambleOn;
+import ramble_on.RambleOnDataModel;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class MapClickHandler implements MouseListener {
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+
+        try {
+            // LOCK THE DATA
+            RambleOn.getRambleOnApp().beginUsingData();
+
+            //left click?
+            if (me.getButton() == MouseEvent.BUTTON1) {
+                ((RambleOnDataModel) (RambleOn.getRambleOnApp().getDataModel())).respondToMapLeftClick();
+            } else if (me.getButton() == MouseEvent.BUTTON3) {
+                ((RambleOnDataModel) (RambleOn.getRambleOnApp().getDataModel())).respondToMapRightClick();
+            }
+        } finally {
+            // RELEASE THE DATA SO THAT THE TIMER THREAD MAY
+            // APPROPRIATELY UPDATE AND RENDER THE GAME
+            // WITHOUT INTERFERENCE
+            RambleOn.getRambleOnApp().endUsingData();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+}

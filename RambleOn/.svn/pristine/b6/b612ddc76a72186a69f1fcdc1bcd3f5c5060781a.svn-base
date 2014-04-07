@@ -1,0 +1,82 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.JPanel;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+
+/**
+ *
+ * @author Leixiang
+ * @version 1.0
+ */
+public class RambleOnPanel extends JPanel {
+
+    // THIS IS ACTUALLY OUR RegionPicker APP, WE NEED THIS
+    // BECAUSE IT HAS THE GUI STUFF THAT WE NEED TO RENDER
+    private RambleOn game;
+    // AND HERE IS ALL THE GAME DATA THAT WE NEED TO RENDER
+    private RambleOnDataModel data;
+
+    /**
+     * This constructor stores the game and data references, which we'll need
+     * for rendering.
+     *
+     * @param initGame the RegionPicker game that is using this panel for
+     * rendering.
+     *
+     * @param initData the RegionPicker game data.
+     */
+    public RambleOnPanel(RambleOn initGame, RambleOnDataModel initData) {
+        game = initGame;
+        data = initData;
+    }
+
+    public void paintComponent(Graphics g) {
+        renderToGraphicsContext(g);
+    }
+
+    public void renderToGraphicsContext(Graphics g) {
+        // RENDER THE WELCOME SCREEN
+        renderWelcomeScreen(g);
+
+        renderAccountsScreen(g);
+    }
+
+    public void renderWelcomeScreen(Graphics g) {
+        if (data.isWelcomeScreen()) {
+            Sprite background = game.getGUIButtons().get(WELCOME_TYPE);
+            background.setState(VISIBLE_STATE);
+            renderSprite(g, background);
+        }
+    }
+
+    public void renderAccountsScreen(Graphics g) {
+        if (data.isAccountScreen()) {
+            super.paintComponent(g);
+            Sprite accountScreen = game.getGUIDecor().get(ACCOUNT_SCREEN_TYPE);
+            renderSprite(g, accountScreen);
+        }
+    }
+
+    /**
+     * Renders the s Sprite into the Graphics context g. Note that each Sprite
+     * knows its own x,y coordinate location.
+     *
+     * @param g the Graphics context of this panel
+     *
+     * @param s the Sprite to be rendered
+     */
+    public void renderSprite(Graphics g, Sprite s) {
+        if (!s.getState().equals(INVISIBLE_STATE)) {
+            SpriteType bgST = s.getSpriteType();
+            Image img = bgST.getStateImage(s.getState());
+            g.drawImage(img, (int) s.getX(), (int) s.getY(), bgST.getWidth(), bgST.getHeight(), null);
+        }
+    }
+}

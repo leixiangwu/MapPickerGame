@@ -1,0 +1,109 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.image.BufferedImage;
+import java.util.Vector;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import javax.swing.JComboBox;
+import ramble_on_account.Account;
+import ramble_on_events.GoForwardHandler;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOn extends MiniGame {
+
+    public RambleOn() {
+        // CALL MiniGame CONSTRUCTOR
+        super(APP_TITLE, FRAME_RATE);
+        RambleOnDataModel newData = (RambleOnDataModel) data;
+        Vector<String> accountNames = new Vector();
+        for (Account account : newData.getAccountManager().getAllAccounts()) {
+            accountNames.add(account.getAccountName());
+            accountNames.add("aaaaaaaaaaaaaaaaaaa");
+        }
+        JComboBox accountNameList = new JComboBox(accountNames);
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * Initializes the complete data model for this application, forcing the
+     * setting of all game data, including all needed SpriteType objects.
+     */
+    @Override
+    public void initData() {
+        // INIT OUR DATA MANAGER
+        data = new RambleOnDataModel();
+        data.setGameDimensions(GAME_WIDTH, GAME_HEIGHT);
+
+        boundaryLeft = 0;
+        boundaryRight = GAME_WIDTH;
+        boundaryTop = 0;
+        boundaryBottom = GAME_HEIGHT;
+
+    }
+
+    @Override
+    public void initGUIControls() {
+        // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
+        canvas = new RambleOnPanel(this, (RambleOnDataModel) data);
+
+        // WE'LL REUSE THESE GUYS
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        sT = new SpriteType(WELCOME_TYPE);
+        img = loadImage(WELCOME_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiButtons.put(WELCOME_TYPE, s);
+        img = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR);
+        sT.addState(INVISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, 0, 0, INVISIBLE_STATE);
+        guiButtons.put(WELCOME_TYPE, s);
+
+
+        // FIRST LOAD THE BACKGROUND, WHICH IS GUI DECOR
+        sT = new SpriteType(ACCOUNT_SCREEN_TYPE);
+        img = loadImage(ACCOUNT_SCREEN_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiDecor.put(ACCOUNT_SCREEN_TYPE, s);
+    }
+
+    @Override
+    public void initGUIHandlers() {
+        GoForwardHandler gfh = new GoForwardHandler((RambleOnDataModel) data);
+        guiButtons.get(WELCOME_TYPE).setActionListener(gfh);
+    }
+
+    @Override
+    public void reset() {
+    }
+
+    @Override
+    public void updateGUI() {
+    }
+
+    public static void main(String[] args) {
+        RambleOn game = new RambleOn();
+        game.startGame();
+    }
+}

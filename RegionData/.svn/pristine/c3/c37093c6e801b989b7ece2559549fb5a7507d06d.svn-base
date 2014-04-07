@@ -1,0 +1,37 @@
+package region_data_exceptions;
+
+/**
+ * The ImagesNotFoundException is a checked exception that represents the
+ * occasion where the images are not found.
+ *
+ * @author Leixiang Wu Stony Brook Student
+ * @version 1.0
+ */
+public class ImagesNotFoundException extends Exception {
+
+    // NAME OF THE DIRECTORY THAT DIDN'T HAVE ANY IMAGES.
+    private String directoryWithError;
+
+    /**
+     * Constructor for this exception, these are simple objects, we'll just
+     * store some info about the error.
+     *
+     * @param initDirectoryWithError the directory name that contain any image..
+     */
+    public ImagesNotFoundException(String initDirectoryWithError) {
+        // KEEP IT FOR LATER
+        directoryWithError = initDirectoryWithError;
+    }
+
+    /**
+     * This method builds and returns a textual description of this object,
+     * which basically summarizes what went wrong.
+     *
+     * @return This message will be useful for describing what directory didn't
+     * have any image.
+     */
+    @Override
+    public String toString() {
+        return "In directory (" + directoryWithError + "), no images were found.";
+    }
+}

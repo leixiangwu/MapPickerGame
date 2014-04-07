@@ -1,0 +1,11 @@
+Leixiang Wu|3
+Africa_Chad|2
+Flag_Mode|2|500|800
+Sub_REGION_MODE|1|700|30
+Asia_Mongolia|1
+Flag_Mode|2|500|40
+Asia_China|4
+Sub_Region_Mode|1|100|100
+Flag_Mode|2|200|44
+capital_Mode|3|300|50
+leader_Mode|4|400|500

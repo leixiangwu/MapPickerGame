@@ -1,0 +1,49 @@
+package ramble_on;
+
+import java.awt.Font;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnSettings {
+    public static final String  CAPITAL_MODE    = "Capital Mode";
+    public static final String  LEADER_MODE    = "Leader Mode";
+    public static final String  SUB_REGION_MODE    = "Sub Region Mode";
+    public static final String  FLAG_MODE    = "Flag Mode";
+    public static final String  ACCOUNT_LIST    = "Account List";
+    public static final String  ACCOUNT_CREATION_HEADER    = "Account Creation";
+    public static final String  NEW_ACCOUNT_MESSAGE = "Enter your new user name: ";
+    
+    public static final Font    LABEL_FONT   = new Font("Serif", Font.BOLD, 30);
+    
+    public static final String  FASTEST_TIME    = "Fastest Time";
+    public static final String  HIGHEST_SCORE    = "Leader Mode";
+    public static final String  NUM_PLAYED   = "Played times";
+
+    
+    // PATH SETTINGS
+
+    public static final String DATA_PATH = "./data";
+    public static final String GUI_PATH = DATA_PATH + "/gui/";
+    public static final String ACCOUNTS_PATH = DATA_PATH + "accounts/";
+    public static final String WELCOME_FILE_PATH = GUI_PATH + "Welcome.png";
+    public static final String BACKGROUND_FILE_PATH = GUI_PATH + "Background.png";
+    public static final String INVISIBLE_STATE = "INVISIBLE_STATE";
+    public static final String VISIBLE_STATE = "VISIBLE_STATE";
+    public static final String MOUSE_OVER_STATE = "MOUSE_OVER_STATE";
+    public static final String WELCOME_TYPE = "WELCOME_TYPE";
+    public static final String BACKGROUND_TYPE = "BACKGROUND_TYPE";
+    // THESE CONSTANTS SETUP THE GAME DIMENSIONS. THE GAME WIDTH
+    // AND HEIGHT SHOULD MIRROR THE BACKGROUND IMAGE DIMENSIONS. WE
+    // WILL NOT RENDER ANYTHING OUTSIDE THOSE BOUNDS.
+    public static final int GAME_WIDTH = 1200;
+    public static final int GAME_HEIGHT = 700;
+    // HERE ARE SOME APP-LEVEL SETTINGS, LIKE THE FRAME RATE.
+    public static final String APP_TITLE = "The Ramble On Game";
+    public static final int FRAME_RATE = 30;
+}

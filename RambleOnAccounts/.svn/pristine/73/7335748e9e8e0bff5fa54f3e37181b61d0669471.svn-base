@@ -1,0 +1,58 @@
+package ramble_on_account;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ *
+ * @author Leixiang
+ */
+public class AccountManager {
+
+    // THIS IS WHERE WE'LL STORE ONE OF EACH REGION
+    private HashMap<String, Account> allAccounts;
+    private AccountsImporterExporter accountsImporterExporter;
+
+    public AccountManager() {
+        allAccounts = new HashMap();
+    }
+
+    public Collection<Account> getAllAccounts() {
+        return allAccounts.values();
+    }
+
+    public Account getAccount(String accountName) {
+        return allAccounts.get(accountName);
+    }
+
+    public boolean hasAccount(String accountName) {
+        return (allAccounts.containsKey(accountName));
+    }
+
+    public void addAccount(String accountName, Account accountToAdd) {
+        allAccounts.put(accountName, accountToAdd);
+    }
+
+    public void clearAccounts() {
+        allAccounts.clear();
+    }
+
+    public void removeAccount(String accountName) {
+        allAccounts.remove(accountName);
+    }
+
+    public void setWorldImporterExporter(AccountsImporterExporter aie) {
+        accountsImporterExporter = aie;
+    }
+
+    public boolean load(File fileToLoad) {
+        return accountsImporterExporter.loadAccounts(this);
+    }
+    
+    public boolean save(File fileToSave) {
+        return accountsImporterExporter.saveAccounts(fileToSave, this);
+    }
+}

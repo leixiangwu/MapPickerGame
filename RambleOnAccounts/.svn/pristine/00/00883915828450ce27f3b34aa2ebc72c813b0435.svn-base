@@ -1,0 +1,39 @@
+<!-- THIS SCHEMA DESCRIBES THE FORMAT TO BE USED 
+FOR READING AND WRITING XML FILES THAT WILL
+STORE ACCOUNT DATA -->
+
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    
+    
+    <xs:attributeGroup name="account_attribute_group">
+        <xs:attribute name="number_of_times_played" type="xs:string" use="optional" />
+        <xs:attribute name="highest_score" type="xs:string" use="optional" />
+        <xs:attribute name="fastest_time" type="xs:string" use="optional" />
+    </xs:attributeGroup>
+    
+    <xs:element name="accounts_list">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="account">
+                    <xs:complexType>
+                        <xs:attribute name="account" type="xs:string" use="optional" />
+                        <xs:simpleContent>
+                            <xs:attribute name="region_name"type="xs:string" use="optional"/>
+                            <xs:sequence minOccurs="0" maxOccurs="5000">
+                                <xs:element name="mode">
+                                    <xs:complexType>
+                                        <xs:attribute name="mode"type="xs:string" use="optional"/>
+                                        <xs:element name="stats">
+                                            <xs:complexType>
+                                                <xs:attributeGroup ref="account_attribute_group" />
+                                            </xs:complexType>
+                                        </xs:element>
+                            </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,175 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.image.BufferedImage;
+import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import ramble_on_account.Account;
+import ramble_on_events.CreateNewAccountHandler;
+import ramble_on_events.GoBackHandler;
+import ramble_on_events.GoForwardHandler;
+import ramble_on_events.GoToAccountCreationHandler;
+
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOn extends MiniGame {
+
+    private JButton createButton;
+    private JButton okButton;
+    private JButton cancelButton;
+    private JButton selectButton;
+    private JTextField accountNameField;
+    private JList accountsList;
+    private JScrollPane scroll;
+
+    public RambleOn() {
+        // CALL MiniGame CONSTRUCTOR
+        super(APP_TITLE, FRAME_RATE);
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * Initializes the complete data model for this application, forcing the
+     * setting of all game data, including all needed SpriteType objects.
+     */
+    @Override
+    public void initData() {
+        // INIT OUR DATA MANAGER
+        data = new RambleOnDataModel();
+        data.setGameDimensions(GAME_WIDTH, GAME_HEIGHT);
+
+        boundaryLeft = 0;
+        boundaryRight = GAME_WIDTH;
+        boundaryTop = 0;
+        boundaryBottom = GAME_HEIGHT;
+
+    }
+
+    @Override
+    public void initGUIControls() {
+        // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
+        canvas = new RambleOnPanel(this, (RambleOnDataModel) data);
+
+        accountNameField = new JTextField(10);
+
+        okButton = new JButton("OK");
+        cancelButton = new JButton("Cancel");
+        createButton = new JButton("Create");
+        selectButton = new JButton("Select");
+
+        RambleOnDataModel rambleData = (RambleOnDataModel) data;
+        Vector<String> accountNames = new Vector();
+        for (Account account : rambleData.getAccountManager().getAllAccounts()) {
+            accountNames.add(account.getAccountName());
+        }
+        accountsList = new JList(accountNames);
+        accountsList.setBorder(BorderFactory.createEtchedBorder());
+        scroll = new JScrollPane(accountsList);
+
+        canvas.setOpaque(false);
+
+        canvas.add(createButton);
+        canvas.add(okButton);
+        canvas.add(cancelButton);
+        canvas.add(accountNameField);
+        canvas.add(selectButton);
+        canvas.add(accountsList);
+
+
+        setACScreenButtonsInvisible();
+        setAccountsScreenGUIInvisible();
+
+        // WE'LL REUSE THESE GUYS
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        sT = new SpriteType(WELCOME_TYPE);
+        img = loadImage(WELCOME_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiButtons.put(WELCOME_TYPE, s);
+
+        // FIRST LOAD THE BACKGROUND, WHICH IS GUI DECOR
+        sT = new SpriteType(BACKGROUND_TYPE);
+        img = loadImage(BACKGROUND_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiDecor.put(BACKGROUND_TYPE, s);
+
+    }
+
+    @Override
+    public void initGUIHandlers() {
+        GoForwardHandler gfh = new GoForwardHandler((RambleOnDataModel) data);
+        guiButtons.get(WELCOME_TYPE).setActionListener(gfh);
+
+        GoToAccountCreationHandler gtach = new GoToAccountCreationHandler((RambleOnDataModel) data, this);
+        createButton.addActionListener(gtach);
+
+        GoBackHandler gbh = new GoBackHandler((RambleOnDataModel) data, this);
+        cancelButton.addActionListener(gbh);
+
+        CreateNewAccountHandler cnah = new CreateNewAccountHandler(this, (RambleOnDataModel) data, accountNameField);
+        okButton.addActionListener(cnah);
+    }
+
+    @Override
+    public void reset() {
+    }
+
+    @Override
+    public void updateGUI() {
+    }
+
+    public void setACScreenButtonsVisible() {
+        okButton.setVisible(true);
+        cancelButton.setVisible(true);
+        accountNameField.setVisible(true);
+    }
+
+    public void setACScreenButtonsInvisible() {
+        okButton.setVisible(false);
+        cancelButton.setVisible(false);
+        accountNameField.setVisible(false);
+    }
+
+    public void setAccountsScreenGUIVisible() {
+        accountsList.setVisible(false);
+        selectButton.setVisible(false);
+        createButton.setVisible(false);
+    }
+
+    public void setAccountsScreenGUIInvisible() {
+        accountsList.setVisible(false);
+        selectButton.setVisible(false);
+        createButton.setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        RambleOn game = new RambleOn();
+        game.startGame();
+    }
+}

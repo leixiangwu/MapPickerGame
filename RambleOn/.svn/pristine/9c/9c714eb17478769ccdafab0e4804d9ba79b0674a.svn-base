@@ -1,0 +1,503 @@
+package ramble_on;
+
+import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import javax.swing.JOptionPane;
+import mini_game.MiniGame;
+import mini_game.MiniGameDataModel;
+import ramble_on_account.Account;
+import ramble_on_account.AccountManager;
+import region_data.RegionDataLoader;
+import region_data.RegionDataManager;
+import static ramble_on.RambleOnSettings.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import mini_game.Sprite;
+import mini_game.SpriteType;
+import ramble_on_sprites.MapSprite;
+import ramble_on_sprites.TextualSprite;
+import region_data_exceptions.AnthemIsMissingException;
+import region_data_exceptions.DirectoryIsMissingException;
+import region_data_exceptions.FileIsMissingException;
+import region_data_exceptions.ImageInvalidDimensionException;
+import region_data_exceptions.ImageNotFoundException;
+import region_data_exceptions.InvalidRGBValuesException;
+import region_data_exceptions.MissingXMLDataException;
+import xml_utilities.InvalidXMLFileFormatException;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnDataModel extends MiniGameDataModel {
+
+    private HashMap<String, ArrayList<Point2D.Double>> pixels;
+    private AccountManager accountManager;
+    private RegionDataLoader regionDataLoader;
+    private GameScreenState screenState;
+    private RegionDataManager regionDataManager;
+    private Sprite currentMap;
+    private LinkedList<String> redSubRegions;
+    private LinkedList<TextualSprite> subRegionStack;
+    private GameModeState gameMode;
+    private int incorrectGuesses;
+    private String gameScore;
+
+    /**
+     *
+     *
+     */
+    public RambleOnDataModel() {
+        accountManager = new AccountManager();
+        accountManager.load();
+        regionDataLoader = new RegionDataLoader(new File(xmlSchemaNameAndPath));
+        regionDataManager = new RegionDataManager();
+        screenState = GameScreenState.WELCOME_SCREEN;
+        subRegionStack = new LinkedList();
+        redSubRegions = new LinkedList();
+    }
+
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
+
+    public RegionDataManager getRegionDataManager() {
+        return regionDataManager;
+    }
+
+    public GameScreenState getScreenState() {
+        return screenState;
+    }
+
+    public boolean isWelcomeScreen() {
+        return screenState == GameScreenState.WELCOME_SCREEN;
+    }
+
+    public boolean isAccountScreen() {
+        return screenState == GameScreenState.ACCOUNT_SCREEN;
+    }
+
+    public boolean isAccountCreationScreen() {
+        return screenState == GameScreenState.ACCOUNT_CREATION_SCREEN;
+    }
+
+    public boolean isCurrentAccountScreen() {
+        return screenState == GameScreenState.CURRENT_ACCOUNT_SCREEN;
+    }
+
+    public boolean isGamePlayScreen() {
+        return screenState == GameScreenState.GAME_PLAY_SCREEN;
+    }
+
+    public void createAccount(RambleOn game, String accountName) {
+        if (!accountManager.hasAccount(accountName.trim())) {
+            if (accountName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(game.getCanvas(), "Error: invalid input because user name is empty.");
+            } else {
+                Account newAccount = new Account(accountName);
+                accountManager.addAccount(accountName, newAccount);
+                accountManager.setCurrentAccount(newAccount);
+                screenState = GameScreenState.CURRENT_ACCOUNT_SCREEN;
+                game.clearRegionStats();
+                game.initTree();
+                game.setCurrentAccountGUIVisible();
+                game.setACScreenButtonsInvisible();
+                game.putCAGUIControlsInWindow();
+                game.clearTextInAccountNameField();
+                accountManager.save();
+            }
+        } else {
+            JOptionPane.showMessageDialog(game.getCanvas(), "Account name is already existed.");
+        }
+    }
+
+    @Override
+    public void checkMousePressOnSprites(MiniGame game, int x, int y) {
+    }
+
+    @Override
+    public void reset(MiniGame game) {
+    }
+
+    @Override
+    public void updateAll(MiniGame game) {
+    }
+
+    @Override
+    public void updateDebugText(MiniGame game) {
+    }
+
+    public void goForwardOneScreen(RambleOn game) {
+        if (isWelcomeScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.setAccountsScreenGUIVisible();
+            game.putASGUIControlsInWindow();
+        } else if (isAccountScreen()) {
+            screenState = GameScreenState.CURRENT_ACCOUNT_SCREEN;
+            game.clearRegionStats();
+            game.initTree();
+            game.setCurrentAccountGUIVisible();
+            game.setAccountsScreenGUIInvisible();
+            game.putCAGUIControlsInWindow();
+        } else if (isCurrentAccountScreen()) {
+            RambleOn.getRambleOnApp().addRambleOnEventRelayer();
+            loadTheWorld();
+            makeMapSprite();
+            screenState = GameScreenState.GAME_PLAY_SCREEN;
+            game.removeTree();
+            game.setCurrentAccountGUIInvisible();
+        }
+    }
+
+    public void goBackOneScreen(RambleOn game) {
+        if (isAccountCreationScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.setAccountsScreenGUIVisible();
+            game.setACScreenButtonsInvisible();
+            game.putASGUIControlsInWindow();
+            game.clearTextInAccountNameField();
+        } else if (isCurrentAccountScreen()) {
+            screenState = GameScreenState.ACCOUNT_SCREEN;
+            game.removeTree();
+            game.setAccountsScreenGUIVisible();
+            game.setCurrentAccountGUIInvisible();
+            game.putASGUIControlsInWindow();
+        } else if (isGamePlayScreen()) {
+            screenState = GameScreenState.CURRENT_ACCOUNT_SCREEN;
+            game.initTree();
+            game.setCurrentAccountGUIVisible();
+        }
+    }
+
+    public void goToAccountCreationScreen(RambleOn game) {
+        if (isAccountScreen()) {
+            screenState = GameScreenState.ACCOUNT_CREATION_SCREEN;
+            game.setACScreenButtonsVisible();
+            game.setAccountsScreenGUIInvisible();
+            game.putACGUIControlsInWindow();
+        }
+    }
+
+    private void loadTheWorld() {
+        importRegionData(THE_WORLD_PATH);
+        importRegionFlags(THE_WORLD_PATH);
+        importRegionLeaderImgs(THE_WORLD_PATH);
+    }
+
+    private void importRegionData(String regionDirectory) {
+        try {
+            regionDataLoader.loadRegionData(regionDirectory, regionDataManager);
+        } catch (InvalidRGBValuesException ex) {
+            JOptionPane.showMessageDialog(RambleOn.getRambleOnApp().getCanvas(), "Error: Unable to load the world because " + ex.toString());
+        } catch (DirectoryIsMissingException ex) {
+            JOptionPane.showMessageDialog(RambleOn.getRambleOnApp().getCanvas(), "Error: Unable to load the world because " + ex.toString());
+        } catch (FileIsMissingException ex) {
+            JOptionPane.showMessageDialog(RambleOn.getRambleOnApp().getCanvas(), "Error: Unable to load the world because " + ex.toString());
+        } catch (AnthemIsMissingException ex) {
+            System.out.println(ex.toString() + " So the anthem will be a standard victory song.");
+            setRegionAnthemAsStandardSong();
+        } catch (InvalidXMLFileFormatException ex) {
+            JOptionPane.showMessageDialog(RambleOn.getRambleOnApp().getCanvas(), "Error: Unable to load the world because " + ex.toString());
+        } catch (MissingXMLDataException ex) {
+            disableBadRegion();
+        }
+    }
+
+    private void importRegionFlags(String regionDirectory) {
+        try {
+            regionDataLoader.loadRegionFlags(regionDirectory, regionDataManager);
+        } catch (ImageNotFoundException ex) {
+            System.out.println(ex.toString() + " Thus, we disable the flag mode button.");
+            disableFlagMode();
+        } catch (ImageInvalidDimensionException ex) {
+            System.out.println(ex.toString() + " Thus, we disable the flag mode button.");
+            disableFlagMode();
+        }
+    }
+
+    private void importRegionLeaderImgs(String regionDirectory) {
+        try {
+            regionDataLoader.loadRegionLeaderImgs(regionDirectory, regionDataManager);
+        } catch (ImageNotFoundException ex) {
+            System.out.println(ex.toString() + " Thus, we disable the leader mode button.");
+            disableLeaderMode();
+        } catch (ImageInvalidDimensionException ex) {
+            System.out.println(ex.toString() + " Thus, we disable the leader mode button.");
+            disableLeaderMode();
+        }
+    }
+
+    private void makeMapSprite() {
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        MapSprite mS;
+
+        sT = new SpriteType(MAP_TYPE);
+        img = regionDataManager.getRegionMap();
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(DEFAULT_STATE, img);
+        mS = new MapSprite(sT, x, y, vX, vY, DEFAULT_STATE);
+
+        setMapSprite(mS);
+
+        // LET'S RECORD ALL THE PIXELS
+        pixels = new HashMap();
+
+        Iterator<String> iterator = regionDataManager.getSubRegions();
+        while (iterator.hasNext()) {
+            pixels.put(iterator.next(), new ArrayList());
+        }
+        for (int i = 0; i < img.getWidth(); i++) {
+            for (int j = 0; j < img.getHeight(); j++) {
+                int rgb = img.getRGB(i, j);
+                Color c = new Color(rgb);
+                if (regionDataManager.getSubRegionMappedToColor(c) != null) {
+                    String subRegion = regionDataManager.getSubRegionMappedToColor(c);
+                    ArrayList<Point2D.Double> subRegionPixels = pixels.get(subRegion);
+                    subRegionPixels.add(new Point2D.Double(i, j));
+                }
+            }
+        }
+    }
+
+    private void disableBadRegion() {
+    }
+
+    public boolean isClickOnMap(int x, int y) {
+        return currentMap.containsPoint(x, y);
+    }
+
+    public void respondToLeftClick() {
+        try {
+            SpriteType mapType = currentMap.getSpriteType();
+            BufferedImage img = mapType.getStateImage(currentMap.getState());
+            int rgb = img.getRGB(lastMouseX, lastMouseY);
+            Color pixelColor = new Color(rgb);
+
+            String clickedSubRegion = regionDataManager.getSubRegionMappedToColor(pixelColor);
+
+            System.out.println(THE_WORLD_PATH + clickedSubRegion);
+
+            if (clickedSubRegion == null) {
+                return;
+            }
+            try {
+                regionDataLoader.loadRegionData(THE_WORLD_PATH + clickedSubRegion, regionDataManager);
+            } catch (AnthemIsMissingException ex) {
+            }
+        } catch (InvalidRGBValuesException ex) {
+        } catch (DirectoryIsMissingException ex) {
+        } catch (FileIsMissingException ex) {
+        } catch (InvalidXMLFileFormatException ex) {
+        } catch (MissingXMLDataException ex) {
+        }
+        makeMapSprite();
+    }
+
+    public void respondToRightClick() {
+        try {
+            regionDataLoader.loadRegionData(THE_WORLD_PATH, regionDataManager);
+
+
+        } catch (InvalidRGBValuesException ex) {
+            Logger.getLogger(RambleOnDataModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (DirectoryIsMissingException ex) {
+            Logger.getLogger(RambleOnDataModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (FileIsMissingException ex) {
+        } catch (InvalidXMLFileFormatException ex) {
+            Logger.getLogger(RambleOnDataModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (MissingXMLDataException ex) {
+            Logger.getLogger(RambleOnDataModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (AnthemIsMissingException e) {
+        }
+        makeMapSprite();
+    }
+
+    public void respondToMapClick() {
+        // THIS IS WHERE WE'LL CHECK TO SEE IF THE
+        // PLAYER CLICKED NO THE CORRECT SUBREGION
+        SpriteType mapType = currentMap.getSpriteType();
+        BufferedImage img = mapType.getStateImage(currentMap.getState());
+        int rgb = img.getRGB(lastMouseX, lastMouseY);
+        Color pixelColor = new Color(rgb);
+        String clickedSubRegion = regionDataManager.getSubRegionMappedToColor(pixelColor);
+        if ((clickedSubRegion == null) || (subRegionStack.isEmpty())) {
+            return;
+        }
+        if (clickedSubRegion.equals(subRegionStack.get(0).getTextToRender())) {
+            // YAY, CORRECT ANSWER
+
+            // TURN THE TERRITORY GREEN
+            changeSubRegionColorOnMap(clickedSubRegion, Color.GREEN);
+
+            // REMOVE THE BOTTOM ELEMENT FROM THE STACK
+            subRegionStack.removeFirst();
+
+            // AND LET'S CHANGE THE RED ONES BACK TO THEIR PROPER COLORS
+            for (String redRegionName : redSubRegions) {
+                Color subRegionColor = regionDataManager.getColorMappedToSubRegion(redRegionName);
+                changeSubRegionColorOnMap(redRegionName, subRegionColor);
+            }
+            redSubRegions.clear();
+
+            if (subRegionStack.isEmpty()) {
+                this.endGameAsWin();
+            }
+
+
+        } else {
+            if (!redSubRegions.contains(clickedSubRegion)) {
+                // BOO WRONG ANSWER
+                incorrectGuesses++;
+                // TURN THE TERRITORY TEMPORARILY RED
+                changeSubRegionColorOnMap(clickedSubRegion, Color.RED);
+                redSubRegions.add(clickedSubRegion);
+            }
+        }
+    }
+
+    public void setRegionAnthemAsStandardSong() {
+    }
+
+    public void loadParentRegionMap() {
+    }
+
+    public void loadChildRegionMap() {
+    }
+
+    public Sprite getMapSprite() {
+        return currentMap;
+    }
+
+    public void setMapSprite(MapSprite mapSprite) {
+        currentMap = mapSprite;
+    }
+
+    public GameModeState getModeState() {
+        return gameMode;
+    }
+
+    public void startSubRegionMode() {
+        gameMode = GameModeState.SUB_REGION_MODE;
+        createSubRegionStack();
+        //setMapSpriteListener();
+    }
+
+    public void startFlagMode() {
+        gameMode = GameModeState.FLAG_MODE;
+        createFlagStack();
+        //setMapSpriteListener();
+    }
+
+    public void startLeaderMode() {
+        gameMode = GameModeState.LEADER_MODE;
+        createLeaderStack();
+        // setMapSpriteListener();
+    }
+
+    public void startCapitalMode() {
+        gameMode = GameModeState.CAPITAL_MODE;
+        createCapitalStack();
+        // setMapSpriteListener();
+    }
+
+    public void createSubRegionStack() {
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        TextualSprite tS;
+
+        sT = new SpriteType(SUB_REGION_TYPE);
+
+        Iterator< String> iterator = regionDataManager.getSubRegions();
+        int n = 650;
+        while (iterator.hasNext()) {
+            TextualSprite subRegionSprite = new TextualSprite(iterator.next(), sT, 900, n, 0, 0, VISIBLE_STATE);
+            subRegionStack.add(subRegionSprite);
+            n -= 50;
+        }
+    }
+
+    public LinkedList<TextualSprite> getSubRegionStack() {
+        return subRegionStack;
+    }
+
+    private void createFlagStack() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void createLeaderStack() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void createCapitalStack() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    //FOR DISABLE THE SUBREGION MODE BUTTON.
+    public void disableSubRegionMode() {
+        Sprite s;
+        s = RambleOn.getRambleOnApp().getGUIButtons().get(SUB_REGION_MODE_TYPE);
+        s.setState(DISABLED_STATE);
+        s.setActionListener(null);
+    }
+    //FOR DISABLE FLAG MODE BUTTON.
+
+    public void disableFlagMode() {
+        Sprite s;
+        s = RambleOn.getRambleOnApp().getGUIButtons().get(FLAG_MODE_TYPE);
+        s.setState(DISABLED_STATE);
+        s.setActionListener(null);
+    }
+    //FOR DISABLE LEADER MODE BUTTON.
+
+    public void disableLeaderMode() {
+        Sprite s;
+        s = RambleOn.getRambleOnApp().getGUIButtons().get(LEADER_MODE_TYPE);
+        s.setState(DISABLED_STATE);
+        s.setActionListener(null);
+    }
+    //FOR DISABLE CAPITAL MODE BUTTON.
+
+    public void disableCapitalMode() {
+        Sprite s;
+        s = RambleOn.getRambleOnApp().getGUIButtons().get(CAPITAL_MODE_TYPE);
+        s.setState(DISABLED_STATE);
+        s.setActionListener(null);
+    }
+
+    /*/private void setMapSpriteListener() {
+     throw new UnsupportedOperationException("Not yet implemented");
+     }*/
+    public void changeSubRegionColorOnMap(String subRegion, Color color) {
+        // THIS IS WHERE WE'LL CHECK TO SEE IF THE
+        // PLAYER CLICKED NO THE CORRECT SUBREGION
+        SpriteType mapType = currentMap.getSpriteType();
+        BufferedImage img = mapType.getStateImage(currentMap.getState());
+        ArrayList<Point2D.Double> subRegionPixels = pixels.get(subRegion);
+        for (Point2D.Double p : subRegionPixels) {
+            int rgb = color.getRGB();
+            img.setRGB((int) (p.x), (int) (p.y), rgb);
+        }
+    }
+}

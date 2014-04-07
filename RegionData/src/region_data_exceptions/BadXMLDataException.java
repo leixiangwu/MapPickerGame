@@ -1,0 +1,50 @@
+package region_data_exceptions;
+
+/**
+ * The BadXMLDataException is a checked exception that represents the occasion
+ * where the data in the xml is missing, like RGB, region names and etc.
+ *
+ * @author Leixiang Wu Stony Brook Student
+ * @version 1.0
+ */
+public class BadXMLDataException extends Exception {
+
+    // NAME OF THE XML FILE.
+    private String xmlWithError;
+    // THE ATTRIBUTE THAT IS MISSING: FOR EXAMPLE, REGION NAME OR RGB.
+    private String attribute;
+
+    /**
+     * Constructor for this exception, these are simple objects, we'll just
+     * store some info about the error.
+     *
+     * @param initXMLWithError the xml file name that has partial data.
+     * @param initAttribute the attribute that is missing.
+     */
+    public BadXMLDataException(String initAttribute, String initXMLWithError) {
+        // KEEP IT FOR LATER
+        attribute = initAttribute;
+        xmlWithError = initXMLWithError;
+    }
+
+    /**
+     * ACCESSOR FOR GETTING WHICH ATTRIBUTE IS MISSING.
+     * 
+     * @return A string that tells us which attribute was missing.
+     **/
+    public String getAttribute() {
+        return attribute;
+    }
+
+    /**
+     * This method builds and returns a textual description of this object,
+     * which basically summarizes what went wrong.
+     *
+     * @return This message will be useful for describing which xml file didn't
+     * have an specific attribute.
+     */
+    @Override
+    public String toString() {
+        return "A " + attribute + " is missing in the XML Document (" + xmlWithError + ")";
+    }
+}

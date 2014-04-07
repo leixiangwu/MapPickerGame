@@ -1,0 +1,205 @@
+package ramble_on_account;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class AccountsImporterExporter {
+
+    public static final String ACCOUNTS_DATA_PATH = "./data/";
+    public static final String SETUP_DELIMITER = "\\|";
+    public static final String GO_NEXT_LINE = "\n";
+    public static final String FLAG_MODE = "FLAG_MODE";
+    public static final String CAPITAL_MODE = "CAPITAL_MODE";
+    public static final String SUB_REGION_MODE = "SUB_REGION_MODE";
+    public static final String LEADER_MODE = "LEADER_MODE";
+    public static final String TEXT_FORMAT_NAME = "txt";
+
+    public AccountsImporterExporter() {
+    }
+
+    public void loadAccounts(AccountManager manager) {
+        String files;
+        File folder = new File(ACCOUNTS_DATA_PATH);
+        File[] listOfFiles = folder.listFiles();
+        System.out.println(folder.getAbsolutePath());
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                files = listOfFiles[i].getName();
+                if (files.endsWith(".txt") || files.endsWith(".TXT")) {
+                    files = ACCOUNTS_DATA_PATH + files;
+                    loadAccountsIntoManager(files, manager);
+                }
+            }
+        }
+    }
+
+    private void loadAccountsIntoManager(String fileToLoad, AccountManager manager) {
+        // We will reuse these instances.
+        FileReader fr;
+        BufferedReader reader;
+        String accountName, regionName, line, mode;
+        String[] lineData;
+        RegionStats regionStats;
+        int highestScore, numOfTimesPlayed, fastestTime, numModes, numRegions;
+        try {
+            fr = new FileReader(fileToLoad);
+            reader = new BufferedReader(fr);
+            line = reader.readLine();
+            lineData = line.split(SETUP_DELIMITER);
+            accountName = lineData[0];
+
+            // create the account, since we know the name.
+            Account account = new Account(accountName);
+
+            // add the account to the manager.
+            manager.addAccount(accountName, account);
+            numRegions = Integer.parseInt(lineData[1]);
+            for (int i = 0; i < numRegions; i++) {
+                line = reader.readLine();
+                lineData = line.split(SETUP_DELIMITER);
+                regionName = lineData[0];
+                account.addRegionPlayed(regionName);
+                numModes = Integer.parseInt(lineData[1]);
+                for (int z = 0; z < numModes; z++) {
+                    line = reader.readLine();
+                    lineData = line.split(SETUP_DELIMITER);
+                    mode = lineData[0];
+                    numOfTimesPlayed = Integer.parseInt(lineData[1]);
+                    highestScore = Integer.parseInt(lineData[2]);
+                    fastestTime = Integer.parseInt(lineData[3]);
+                    regionStats = createRegionStats(numOfTimesPlayed, highestScore, fastestTime);
+                    loadModeDataHelper(account, regionName, mode, regionStats);
+                    System.out.println(regionName);
+                }
+            }
+            reader.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File Not Found");
+        } catch (IOException e) {
+            System.out.println("File Format Error Found");
+        }
+    }
+
+    private RegionStats createRegionStats(int numPlayed, int score, int time) {
+        RegionStats stats = new RegionStats(numPlayed, score, time);
+        return stats;
+    }
+
+    private void loadModeDataHelper(Account account, String regionName, String mode, RegionStats stats) {
+        // WHICH MODE IS IT?
+        switch (mode.toUpperCase()) {
+            case FLAG_MODE:
+                account.addFlagModeStats(regionName, stats);
+                break;
+            case SUB_REGION_MODE:
+                account.addSubRegionModeStats(regionName, stats);
+                break;
+            case LEADER_MODE:
+                account.addLeaderModeStats(regionName, stats);
+                break;
+            case CAPITAL_MODE:
+                account.addCapitalModeStats(regionName, stats);
+                break;
+            default:
+                System.out.println("Invalid Mode");
+                break;
+        }
+    }
+
+    public void saveAccounts(AccountManager manager) {
+        FileWriter fw;
+        BufferedWriter writer;
+        File file;
+        for (Account account : manager.getAllAccounts()) {
+
+            String filePathName = ACCOUNTS_DATA_PATH + account.getAccountName() + TEXT_FORMAT_NAME;
+
+            file = new File(filePathName);
+
+            //does the file exist? if it does, delete it.
+            if (file.exists()) {
+                file.delete();
+            }
+            //does the file exist? if it doesn't, make a new file.
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException ex) {
+                    System.out.println("Error : File Format Exception");
+                }
+            }
+            // Now the file has empty content.
+            try {
+                fw = new FileWriter(filePathName);
+                writer = new BufferedWriter(fw);
+                writer.write(account.getAccountName() + SETUP_DELIMITER + account.getRegionPlayedSize() + GO_NEXT_LINE);
+                writeAccountInfoHelper(writer, account);
+                writer.close();
+            } catch (IOException ex) {
+                System.out.println("Error : Input or Output Format Exception");
+
+            }
+        }
+    }
+
+    private void writeAccountInfoHelper(BufferedWriter writer, Account account) {
+        String regionName;
+        RegionStats flagModeStats, subRegionModeStats, leaderModeStats, capitalModeStats;
+        Iterator< String> iterator = account.getAllRegionsPlayed();
+        while (iterator.hasNext()) {
+            regionName = iterator.next();
+            try {
+                writer.write(regionName + SETUP_DELIMITER + account.getNumModesPlayed(regionName) + GO_NEXT_LINE);
+            } catch (IOException ex) {
+                System.out.println("Error: Region name format is wrong.");
+
+            }
+            flagModeStats = account.getFlagModeStats(regionName);
+            subRegionModeStats = account.getSubRegionModeStats(regionName);
+            leaderModeStats = account.getLeaderModeStats(regionName);
+            capitalModeStats = account.getCapitalModeStats(regionName);
+            if (subRegionModeStats != null) {
+                writerModeRegionStats(writer, SUB_REGION_MODE, subRegionModeStats);
+            }
+            if (flagModeStats != null) {
+                writerModeRegionStats(writer, FLAG_MODE, flagModeStats);
+            }
+            if (capitalModeStats != null) {
+                writerModeRegionStats(writer, CAPITAL_MODE, capitalModeStats);
+            }
+            if (leaderModeStats != null) {
+                writerModeRegionStats(writer, LEADER_MODE, leaderModeStats);
+            }
+        }
+
+    }
+
+    private void writerModeRegionStats(BufferedWriter writer, String mode, RegionStats stats) {
+        String stringToWrite = mode + SETUP_DELIMITER + stats.getNumberOfTimesPlayed() + SETUP_DELIMITER
+                + stats.getHighestScore() + SETUP_DELIMITER + stats.getFastestTime() + "\n";
+        try {
+            writer.write(stringToWrite);
+        } catch (IOException ex) {
+            System.out.println("Error : The mode format is wrong!");
+
+        }
+
+    }
+}

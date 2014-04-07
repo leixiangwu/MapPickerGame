@@ -1,0 +1,792 @@
+package ramble_on;
+
+import audio_manager.AudioManager;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.image.BufferedImage;
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import ramble_on_account.Account;
+import ramble_on_account.RegionStats;
+import ramble_on_events.*;
+
+/**
+ * This is the central class for our game application. It extends the MiniGame
+ * class and overrides all the proper methods for setting up the Data, the GUI,
+ * the Event Handlers, and update timer and timer task.
+ *
+ *
+ * @author Leixiang Wu
+ * @version 1.0
+ */
+public class RambleOn extends MiniGame {
+
+    private static RambleOn game = null;
+    //THESE ARE INSTANCES OR GUI CONTROLS THAT ARE NEEDED FOR OUR PROGRAM.
+    private RambleOnDataModel rambleOnDataModel;
+    
+    private AudioManager audio;
+    
+    private JScrollPane worldTreeScrollPane;
+    private JTree worldTree;
+    private JLabel accountCreationHeaderLabel;
+    private JLabel newAccountMessage;
+    private JLabel accountListLabel;
+    private JLabel flagModeLabel;
+    private JLabel subRegionModeLabel;
+    private JLabel leaderModeLabel;
+    private JLabel capitalModeLabel;
+    private JLabel fastestTimeLabel;
+    private JLabel highestScoreLabel;
+    private JLabel numOfTimesPlayedLabel;
+    private DefaultTreeModel worldTreeModel;
+    private JButton createButton;
+    private JButton okButton;
+    private JButton cancelButton;
+    private JButton selectButton;
+    private JTextField accountNameField;
+    private JTextField subRegionFastestTimeField = new JTextField(15);
+    private JTextField subRegionNumberPlayedField = new JTextField(15);
+    private JTextField subRegionHighestScoreField = new JTextField(15);
+    private JTextField flagModeFastestTimeField = new JTextField(15);
+    private JTextField flagModeNumberPlayedField = new JTextField(15);
+    private JTextField flagModeHighestScoreField = new JTextField(15);
+    private JTextField leaderModeFastestTimeField = new JTextField(15);
+    private JTextField leaderModeNumberPlayedField = new JTextField(15);
+    private JTextField leaderModeHighestScoreField = new JTextField(15);
+    private JTextField capitalModeFastestTimeField = new JTextField(15);
+    private JTextField capitalModeNumberPlayedField = new JTextField(15);
+    private JTextField capitalModeHighestScoreField = new JTextField(15);
+    public DefaultMutableTreeNode root;
+    private JList accountsList;
+    private JScrollPane scroll;
+    private JSplitPane splitPane;
+
+    /**
+     * Default, and only, constructor, it invokes the parent MiniGame's
+     * constructor, which forces the full game application initialization. It
+     * also sets up the game icon.
+     */
+    public RambleOn() {
+        // CALL MiniGame CONSTRUCTOR
+        super(APP_TITLE, FRAME_RATE);
+        
+        initAudio();
+        
+        window.setIconImage(loadImage(GAME_ICON_FILE_PATH));
+
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * Initializes the complete data model for this application, forcing the
+     * setting of all game data.
+     */
+    @Override
+    public void initData() {
+        // INIT OUR DATA MANAGER
+        rambleOnDataModel = new RambleOnDataModel();
+        data = rambleOnDataModel;
+        data.setGameDimensions(GAME_WIDTH, GAME_HEIGHT);
+
+        boundaryLeft = 0;
+        boundaryRight = GAME_WIDTH;
+        boundaryTop = 0;
+        boundaryBottom = GAME_HEIGHT;
+    }
+
+    /**
+     * For initializing all GUI controls, specifically all the buttons and
+     * decor. Note that this method must construct the canvas with its custom
+     * renderer.
+     */
+    @Override
+    public void initGUIControls() {
+        // CONSTRUCT THE PANEL WHERE WE'LL DRAW EVERYTHING
+        canvas = new RambleOnPanel(this, (RambleOnDataModel) data);
+
+        canvas.setLayout(new GridBagLayout());
+
+        initWelcomeScreenGUIControls();
+
+        initAccountsScreenGUIControls();
+
+        initACScreenGUIControls();
+
+        //initialize all current account screen GUI controls.
+        initCAScreenGUIControls();
+
+        //initialize all game play screen GUI controls.
+        initGamePlayScreenGUIControls();
+
+        setAccountsScreenGUIInvisible();
+
+        setACScreenButtonsInvisible();
+
+
+    }
+
+    //Helper method that constructs GUI CONTROLS
+    private void initWelcomeScreenGUIControls() {
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+        sT = new SpriteType(WELCOME_TYPE);
+        img = loadImage(WELCOME_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(VISIBLE_STATE, img);
+        s = new Sprite(sT, x, y, vX, vY, VISIBLE_STATE);
+        guiButtons.put(WELCOME_TYPE, s);
+    }
+
+    //Helper method that constructs GUI CONTROLS
+    private void initAccountsScreenGUIControls() {
+
+        // WE'LL REUSE THESE GUYS
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        // FIRST LOAD THE BACKGROUND, WHICH IS GUI DECOR
+        sT = new SpriteType(BACKGROUND_TYPE);
+        img = loadImage(BACKGROUND1_FILE_PATH);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        sT.addState(BACKGROUND1_STATE, img);
+        //img = loadImage(BACKGROUND2_FILE_PATH);
+        //sT.addState(BACKGROUND2_STATE, img);        
+        s = new Sprite(sT, x, y, vX, vY, BACKGROUND1_STATE);
+        guiDecor.put(BACKGROUND_TYPE, s);
+        //s = new Sprite(sT, x, y, vX, vY, BACKGROUND2_STATE);
+        //guiDecor.put(BACKGROUND_TYPE, s);
+
+
+        accountListLabel = new JLabel(ACCOUNT_LIST);
+        accountListLabel.setFont(LABEL_FONT);
+        accountListLabel.setForeground(Color.white);
+
+        accountsList = new JList(rambleOnDataModel.getAccountManager().getAllAccountNames());
+        accountsList.setBorder(BorderFactory.createEtchedBorder());
+        scroll = new JScrollPane(accountsList);
+
+        createButton = new JButton("Create");
+        selectButton = new JButton("Select");
+
+        putASGUIControlsInWindow();
+    }
+
+    //Helper method that constructs GUI CONTROLS
+    public void putASGUIControlsInWindow() {
+        canvas.setLayout(new GridBagLayout());
+        addComponentToPanel(accountListLabel, 0, 0, 2, 1);
+        addComponentToPanel(scroll, 0, 1, 2, 1);
+        addComponentToPanel(createButton, 0, 2, 1, 1);
+        addComponentToPanel(selectButton, 1, 2, 1, 1);
+    }
+
+    //Helper method that constructs GUI CONTROLS
+    private void initACScreenGUIControls() {
+        accountCreationHeaderLabel = new JLabel(ACCOUNT_CREATION_HEADER);
+        accountCreationHeaderLabel.setFont(LABEL_FONT);
+        accountCreationHeaderLabel.setForeground(Color.white);
+
+        newAccountMessage = new JLabel(NEW_ACCOUNT_MESSAGE);
+        newAccountMessage.setForeground(Color.orange);
+
+        accountNameField = new JTextField(10);
+        okButton = new JButton("OK");
+        cancelButton = new JButton("Cancel");
+
+        putACGUIControlsInWindow();
+    }
+
+    public void putACGUIControlsInWindow() {
+        canvas.setLayout(new GridBagLayout());
+        addComponentToPanel(accountCreationHeaderLabel, 0, 0, 2, 1);
+        addComponentToPanel(newAccountMessage, 0, 1, 2, 1);
+        addComponentToPanel(accountNameField, 0, 2, 2, 1);
+        addComponentToPanel(okButton, 0, 3, 1, 1);
+        addComponentToPanel(cancelButton, 1, 3, 1, 1);
+    }
+
+    public void initCAScreenGUIControls() {
+        //We will reuse these guys.
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        sT = new SpriteType(GO_FORWARD_BUTTON_TYPE);
+        img = loadImage(GO_FORWARD_BUTTON_FILE_PATH);
+        sT.addState(DEFAULT_STATE, img);
+        img = loadImage(GO_FORWARD_BUTTON_MOUSE_OVER_FILE_PATH);
+        sT.addState(MOUSE_OVER_STATE, img);
+        x = 0;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        s = new Sprite(sT, x, y, vX, vY, DEFAULT_STATE);
+        guiButtons.put(GO_FORWARD_BUTTON_TYPE, s);
+
+        sT = new SpriteType(GO_BACK_BUTTON_TYPE);
+        img = loadImage(GO_BACK_BUTTON_FILE_PATH);
+        sT.addState(DEFAULT_STATE, img);
+        img = loadImage(GO_BACK_BUTTON_MOUSE_OVER_FILE_PATH);
+        sT.addState(MOUSE_OVER_STATE, img);
+        x = 60;
+        y = 0;
+        vX = 0;
+        vY = 0;
+        s = new Sprite(sT, x, y, vX, vY, DEFAULT_STATE);
+        guiButtons.put(GO_BACK_BUTTON_TYPE, s);
+
+
+
+        flagModeLabel = new JLabel(FLAG_MODE);
+        flagModeLabel.setFont(LABEL_FONT);
+        flagModeLabel.setForeground(Color.YELLOW);
+
+        subRegionModeLabel = new JLabel(SUB_REGION_MODE);
+        subRegionModeLabel.setFont(LABEL_FONT);
+        subRegionModeLabel.setForeground(Color.YELLOW);
+
+        leaderModeLabel = new JLabel(LEADER_MODE);
+        leaderModeLabel.setFont(LABEL_FONT);
+        leaderModeLabel.setForeground(Color.YELLOW);
+
+        capitalModeLabel = new JLabel(CAPITAL_MODE);
+        capitalModeLabel.setFont(LABEL_FONT);
+        capitalModeLabel.setForeground(Color.YELLOW);
+
+        fastestTimeLabel = new JLabel(FASTEST_TIME);
+        fastestTimeLabel.setForeground(Color.orange);
+        highestScoreLabel = new JLabel(HIGHEST_SCORE);
+        highestScoreLabel.setForeground(Color.orange);
+        numOfTimesPlayedLabel = new JLabel(NUM_PLAYED);
+        numOfTimesPlayedLabel.setForeground(Color.orange);
+
+        subRegionFastestTimeField = new JTextField(15);
+        subRegionNumberPlayedField = new JTextField(15);
+        subRegionHighestScoreField = new JTextField(15);
+
+        flagModeFastestTimeField = new JTextField(15);
+        flagModeNumberPlayedField = new JTextField(15);
+        flagModeHighestScoreField = new JTextField(15);
+
+        leaderModeFastestTimeField = new JTextField(15);
+        leaderModeNumberPlayedField = new JTextField(15);
+        leaderModeHighestScoreField = new JTextField(15);
+
+        capitalModeFastestTimeField = new JTextField(15);
+        capitalModeNumberPlayedField = new JTextField(15);
+        capitalModeHighestScoreField = new JTextField(15);
+
+
+        putCAGUIControlsInWindow();
+
+        setCurrentAccountGUIInvisible();
+    }
+
+    public void putCAGUIControlsInWindow() {
+        canvas.setLayout(new GridBagLayout());
+
+        addComponentToPanel(subRegionModeLabel, 1, 0, 1, 1);
+        addComponentToPanel(flagModeLabel, 2, 0, 1, 1);
+        addComponentToPanel(capitalModeLabel, 3, 0, 1, 1);
+        addComponentToPanel(leaderModeLabel, 4, 0, 1, 1);
+
+        addComponentToPanel(numOfTimesPlayedLabel, 0, 1, 1, 1);
+        addComponentToPanel(highestScoreLabel, 0, 2, 1, 1);
+        addComponentToPanel(fastestTimeLabel, 0, 3, 1, 1);
+
+        addComponentToPanel(subRegionNumberPlayedField, 1, 1, 1, 1);
+        addComponentToPanel(subRegionHighestScoreField, 1, 2, 1, 1);
+        addComponentToPanel(subRegionFastestTimeField, 1, 3, 1, 1);
+
+        addComponentToPanel(flagModeNumberPlayedField, 2, 1, 1, 1);
+        addComponentToPanel(flagModeHighestScoreField, 2, 2, 1, 1);
+        addComponentToPanel(flagModeFastestTimeField, 2, 3, 1, 1);
+
+        addComponentToPanel(capitalModeNumberPlayedField, 3, 1, 1, 1);
+        addComponentToPanel(capitalModeHighestScoreField, 3, 2, 1, 1);
+        addComponentToPanel(capitalModeFastestTimeField, 3, 3, 1, 1);
+
+        addComponentToPanel(leaderModeNumberPlayedField, 4, 1, 1, 1);
+        addComponentToPanel(leaderModeHighestScoreField, 4, 2, 1, 1);
+        addComponentToPanel(leaderModeFastestTimeField, 4, 3, 1, 1);
+
+    }
+
+    private void initGamePlayScreenGUIControls() {
+        //We will reuse these guys.
+        SpriteType sT;
+        BufferedImage img;
+        int x, y, vX, vY;
+        Sprite s;
+
+        sT = new SpriteType(GAME_LOGO_TYPE);
+        img = loadImage(GAME_LOGO_FILE_PATH);
+        sT.addState(DEFAULT_STATE, img);
+        x = data.getGameWidth() - img.getWidth();
+        y = 0;
+        vX = 0;
+        vY = 0;
+        s = new Sprite(sT, x, y, vX, vY, DEFAULT_STATE);
+        guiDecor.put(GAME_LOGO_TYPE, s);
+        
+        
+        sT = new SpriteType(GAME_LOGO_TYPE);
+        img = loadImage(GAME_LOGO_FILE_PATH);
+        sT.addState(DEFAULT_STATE, img);
+        x = data.getGameWidth() - img.getWidth();
+        y = 0;
+        vX = 0;
+        vY = 0;
+        s = new Sprite(sT, x, y, vX, vY, DEFAULT_STATE);
+        guiDecor.put(GAME_LOGO_TYPE, s);
+
+
+    }
+
+    /**
+     * For initializing all the button handlers for the GUI.
+     */
+    @Override
+    public void initGUIHandlers() {
+        GoForwardHandler gfh = new GoForwardHandler(rambleOnDataModel, this);
+        guiButtons.get(WELCOME_TYPE).setActionListener(gfh);
+        guiButtons.get(GO_FORWARD_BUTTON_TYPE).setActionListener(gfh);
+
+        GoToAccountCreationHandler gtach = new GoToAccountCreationHandler(rambleOnDataModel, this, accountsList);
+        createButton.addActionListener(gtach);
+
+        GoBackHandler gbh = new GoBackHandler(rambleOnDataModel, this);
+        cancelButton.addActionListener(gbh);
+        guiButtons.get(GO_BACK_BUTTON_TYPE).setActionListener(gbh);
+
+
+        CreateNewAccountHandler cnah = new CreateNewAccountHandler(this, rambleOnDataModel, accountNameField);
+        okButton.addActionListener(cnah);
+
+        SelectAccountHandler sach = new SelectAccountHandler(rambleOnDataModel, this, accountsList);
+        selectButton.addActionListener(sach);
+    }
+
+    @Override
+    public void reset() {
+    }
+
+    /**
+     * For reloading accounts into JTree.
+     */
+    public void reloadAccountList() {
+        DefaultListModel listModel = new DefaultListModel();
+
+        for (Account account : rambleOnDataModel.getAccountManager().getAllAccounts()) {
+            listModel.addElement(account.getAccountName());
+        }
+        accountsList.setModel(listModel);
+    }
+
+    @Override
+    public void updateGUI() {
+    }
+
+    /**
+     * For clearing the text in the account name field.
+     */
+    public void clearTextInAccountNameField() {
+        accountNameField.setText("");
+    }
+
+    /**
+     * For setting Account Creation Screen GUI Controls Visible.
+     */
+    public void setACScreenButtonsVisible() {
+        accountCreationHeaderLabel.setVisible(true);
+        newAccountMessage.setVisible(true);
+        okButton.setVisible(true);
+        cancelButton.setVisible(true);
+        accountNameField.setVisible(true);
+    }
+
+    /**
+     * For setting Account Creation Screen GUI Controls Invisible.
+     */
+    public void setACScreenButtonsInvisible() {
+        accountCreationHeaderLabel.setVisible(false);
+        newAccountMessage.setVisible(false);
+        okButton.setVisible(false);
+        cancelButton.setVisible(false);
+        accountNameField.setVisible(false);
+    }
+
+    /**
+     * For setting Accounts Screen GUI Controls Visible.
+     */
+    public void setAccountsScreenGUIVisible() {
+        accountListLabel.setVisible(true);
+        scroll.setVisible(true);
+        selectButton.setVisible(true);
+        createButton.setVisible(true);
+    }
+
+    /**
+     * For setting Accounts Screen GUI Controls Invisible.
+     */
+    public void setAccountsScreenGUIInvisible() {
+        accountListLabel.setVisible(false);
+        scroll.setVisible(false);
+        selectButton.setVisible(false);
+        createButton.setVisible(false);
+    }
+
+    /**
+     * For setting Current Accounts Screen GUI Controls Invisible.
+     */
+    public void setCurrentAccountGUIInvisible() {
+
+        flagModeLabel.setVisible(false);
+        subRegionModeLabel.setVisible(false);
+        leaderModeLabel.setVisible(false);
+        capitalModeLabel.setVisible(false);
+
+        fastestTimeLabel.setVisible(false);
+        highestScoreLabel.setVisible(false);
+        numOfTimesPlayedLabel.setVisible(false);
+
+        subRegionNumberPlayedField.setVisible(false);
+        subRegionHighestScoreField.setVisible(false);
+        subRegionFastestTimeField.setVisible(false);
+
+        flagModeNumberPlayedField.setVisible(false);
+        flagModeHighestScoreField.setVisible(false);
+        flagModeFastestTimeField.setVisible(false);
+
+        capitalModeNumberPlayedField.setVisible(false);
+        capitalModeHighestScoreField.setVisible(false);
+        capitalModeFastestTimeField.setVisible(false);
+
+        leaderModeNumberPlayedField.setVisible(false);
+        leaderModeHighestScoreField.setVisible(false);
+        leaderModeFastestTimeField.setVisible(false);
+    }
+
+    /**
+     * For setting Current Accounts Screen GUI Controls Visible.
+     */
+    public void setCurrentAccountGUIVisible() {
+        flagModeLabel.setVisible(true);
+        subRegionModeLabel.setVisible(true);
+        leaderModeLabel.setVisible(true);
+        capitalModeLabel.setVisible(true);
+
+        fastestTimeLabel.setVisible(true);
+        highestScoreLabel.setVisible(true);
+        numOfTimesPlayedLabel.setVisible(true);
+
+
+        subRegionNumberPlayedField.setVisible(true);
+        subRegionHighestScoreField.setVisible(true);
+        subRegionFastestTimeField.setVisible(true);
+
+        flagModeNumberPlayedField.setVisible(true);
+        flagModeHighestScoreField.setVisible(true);
+        flagModeFastestTimeField.setVisible(true);
+
+        capitalModeNumberPlayedField.setVisible(true);
+        capitalModeHighestScoreField.setVisible(true);
+        capitalModeFastestTimeField.setVisible(true);
+
+        leaderModeNumberPlayedField.setVisible(true);
+        leaderModeHighestScoreField.setVisible(true);
+        leaderModeFastestTimeField.setVisible(true);
+
+    }
+
+    /**
+     * Following are access methods for getting GUI controls..
+     */
+    public JButton getOkButton() {
+        return okButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public JButton getSelectButton() {
+        return selectButton;
+    }
+
+    public JList setAccountsList() {
+        return accountsList;
+    }
+
+    public JButton getCreateButton() {
+        return createButton;
+    }
+
+    /**
+     * Helper method used for organizing components inside the panel, which uses
+     * GridBagLayout.
+     *
+     * @param componentToAdd Component we're putting inside the panel
+     *
+     * @param col Column location to put the component.
+     *
+     * @param row Row location to put the component.
+     *
+     * @param colSpan Number of columns the component will span.
+     *
+     * @param rowSpan Number of rows the component will span.
+     */
+    private void addComponentToPanel(Component componentToAdd,
+            int col, int row, int colSpan, int rowSpan) {
+        // EMPLOY GRID BAG LAYOUT TO PUT IT IN THE PANEL
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = col;
+        gbc.gridy = row;
+        gbc.gridwidth = colSpan;
+        gbc.gridheight = rowSpan;
+        gbc.ipadx = CONTROLS_IPADX;
+        gbc.ipady = CONTROLS_IPADY;
+        gbc.insets = CONTROLS_INSETS;
+        gbc.fill = GridBagConstraints.BOTH;
+        canvas.add(componentToAdd, gbc);
+    }
+
+    public void initTree() {
+        // INIT THE TREE
+        worldTree = new JTree();
+
+        // MAKE IT SCROLLABLE
+        worldTreeScrollPane = new JScrollPane(worldTree);
+
+        // AND HOOK UP THE TREE LISTENER
+        WorldTreeHandler treeHandler = new WorldTreeHandler(this);
+
+        worldTree.addTreeSelectionListener(treeHandler);
+
+        initWorldTree();
+
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                worldTreeScrollPane,
+                canvas);
+        splitPane.setDividerLocation(SPLIT_PANE_LEFT_LOCATION);
+
+        //canvas.add(worldTreeScrollPane);
+
+        // NOW PUT THE WORKBENCH INSIDE THE WINDOW
+        window.setLayout(new BorderLayout());
+        window.add(splitPane, BorderLayout.CENTER);
+        window.validate();
+    }
+
+    public void initWorldTree() {
+        root = new DefaultMutableTreeNode("World");
+        DefaultMutableTreeNode tempNode;
+        worldTreeModel = new DefaultTreeModel(root);
+        String[] lineData;
+        for (String regionNames : rambleOnDataModel.getAccountManager().getCurrentAccount().getRegionsPlayedList()) {
+            if (regionNames.contains("_")) {
+                lineData = regionNames.split("_");
+                tempNode = getRegionNode(lineData[0]);
+                if (tempNode != null) {
+                    addSubRegionsToTree(lineData[1], tempNode);
+                } else {
+                    addSubRegionsToTree(lineData[0], root);
+                    addSubRegionsToTree(lineData[1], getRegionNode(lineData[0]));
+                }
+            } else {
+                addSubRegionsToTree(regionNames, root);
+            }
+        }
+        selectRootNode();
+        worldTree.setModel(worldTreeModel);
+    }
+
+    private void addSubRegionsToTree(String regionToAdd, DefaultMutableTreeNode parentNode) {
+        DefaultMutableTreeNode subNode = new DefaultMutableTreeNode(regionToAdd);
+        worldTreeModel.insertNodeInto(subNode, parentNode, parentNode.getChildCount());
+    }
+
+    public DefaultMutableTreeNode getRegionNode(String nodeRegion) {
+        // START AT THE ROOT
+        DefaultMutableTreeNode walker = (DefaultMutableTreeNode) worldTreeModel.getRoot();
+        String testRegion = (String) walker.getUserObject();
+        if (testRegion.equalsIgnoreCase(nodeRegion)) {
+            return walker;
+        } else {
+            // THIS WILL BE A RECURSIVE SEARCH METHOD
+            return findDescendantNode(walker, nodeRegion);
+        }
+    }
+
+    private DefaultMutableTreeNode findDescendantNode(DefaultMutableTreeNode node, String region) {
+        // GO THROUGH ALL OF node's CHILDREN
+        for (int i = 0; i < node.getChildCount(); i++) {
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
+            String testRegion = (String) childNode.getUserObject();
+            if (testRegion.equalsIgnoreCase(region)) {
+                return childNode;
+            } else if (!childNode.isLeaf()) {
+                // RECURSIVE CALL HERE
+                DefaultMutableTreeNode foundNode = findDescendantNode(childNode, region);
+                if (foundNode != null) {
+                    return foundNode;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void selectRootNode() {
+        worldTree.setSelectionRow(0);
+        openFirstRowOfWorldTree();
+    }
+
+    public void openFirstRowOfWorldTree() {
+        worldTree.expandRow(0);
+    }
+
+    public void removeTree() {
+        window.remove(splitPane);
+        window.add(canvas);
+        window.validate();
+    }
+
+    public void displayRegionStats(String regionName) {
+        Account currentAccount = rambleOnDataModel.getAccountManager().getCurrentAccount();
+        RegionStats capitalModeStats = currentAccount.getCapitalModeStats(regionName);
+        RegionStats subRegionModeStats = currentAccount.getSubRegionModeStats(regionName);
+        RegionStats leaderModeStats = currentAccount.getLeaderModeStats(regionName);
+        RegionStats flagModeStats = currentAccount.getFlagModeStats(regionName);
+        String time = "";
+
+        if (subRegionModeStats != null) {
+            subRegionNumberPlayedField.setText(Integer.toString(subRegionModeStats.getNumberOfTimesPlayed()));
+            subRegionHighestScoreField.setText(Integer.toString(subRegionModeStats.getHighestScore()));
+
+            if (subRegionModeStats.getFastestTime() > 60) {
+                time = subRegionModeStats.getFastestTime() / 60 + " : " + subRegionModeStats.getFastestTime() % 60;
+            } else {
+                time = "0 : " + subRegionModeStats.getFastestTime();
+            }
+            subRegionFastestTimeField.setText(time);
+        }
+        if (flagModeStats != null) {
+            flagModeNumberPlayedField.setText(Integer.toString(flagModeStats.getNumberOfTimesPlayed()));
+            flagModeHighestScoreField.setText(Integer.toString(flagModeStats.getHighestScore()));
+            if (flagModeStats.getFastestTime() > 60) {
+                time = flagModeStats.getFastestTime() / 60 + " : " + flagModeStats.getFastestTime() % 60;
+            } else {
+                time = "0 : " + flagModeStats.getFastestTime();
+            }
+            flagModeFastestTimeField.setText(time);
+        }
+        if (capitalModeStats != null) {
+            capitalModeNumberPlayedField.setText(Integer.toString(capitalModeStats.getNumberOfTimesPlayed()));
+            capitalModeHighestScoreField.setText(Integer.toString(capitalModeStats.getHighestScore()));
+
+            if (capitalModeStats.getFastestTime() > 60) {
+                time = capitalModeStats.getFastestTime() / 60 + " : " + capitalModeStats.getFastestTime() % 60;
+            } else {
+                time = "0 : " + capitalModeStats.getFastestTime();
+            }
+            capitalModeFastestTimeField.setText(time);
+        }
+        if (leaderModeStats != null) {
+            leaderModeNumberPlayedField.setText(Integer.toString(leaderModeStats.getNumberOfTimesPlayed()));
+            leaderModeHighestScoreField.setText(Integer.toString(leaderModeStats.getHighestScore()));
+            if (leaderModeStats.getFastestTime() > 60) {
+                time = leaderModeStats.getFastestTime() / 60 + " : " + leaderModeStats.getFastestTime() % 60;
+            } else {
+                time = "0 : " + leaderModeStats.getFastestTime();
+            }
+            leaderModeFastestTimeField.setText(time);
+        }
+    }
+
+    /* 
+     * Clear all files that display stats.
+     */
+    public void clearRegionStats() {
+        subRegionNumberPlayedField.setText("");
+        subRegionHighestScoreField.setText("");
+        subRegionFastestTimeField.setText("");
+        flagModeNumberPlayedField.setText("");
+        flagModeHighestScoreField.setText("");
+        flagModeFastestTimeField.setText("");
+        capitalModeNumberPlayedField.setText("");
+        capitalModeHighestScoreField.setText("");
+        capitalModeFastestTimeField.setText("");
+        leaderModeNumberPlayedField.setText("");
+        leaderModeHighestScoreField.setText("");
+        leaderModeFastestTimeField.setText("");
+
+        subRegionNumberPlayedField.setEditable(false);
+        subRegionHighestScoreField.setEditable(false);
+        subRegionFastestTimeField.setEditable(false);
+
+        flagModeNumberPlayedField.setEditable(false);
+        flagModeHighestScoreField.setEditable(false);
+        flagModeFastestTimeField.setEditable(false);
+
+        capitalModeNumberPlayedField.setEditable(false);
+        capitalModeHighestScoreField.setEditable(false);
+        capitalModeFastestTimeField.setEditable(false);
+
+        leaderModeNumberPlayedField.setEditable(false);
+        leaderModeHighestScoreField.setEditable(false);
+        leaderModeFastestTimeField.setEditable(false);
+    }
+
+    public static RambleOn getRambleOnApp() {
+        if (game == null) {
+            game = new RambleOn();
+        }
+        return game;
+    }
+
+    
+    
+    public void initAudio()
+    {
+        audio = new AudioManager();
+        try
+        {
+            audio.loadAudio(BACKGROUND_MUSIC, BACKGROUND_MUSIC_FILE_NAME);
+            audio.play(BACKGROUND_MUSIC, true);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(window, e.getStackTrace());
+        }
+    }
+    
+    
+    public AudioManager getAudio() {
+        return audio;
+    }
+
+    public static void main(String[] args) {
+        RambleOn game = getRambleOnApp();
+        game.startGame();
+    }
+}

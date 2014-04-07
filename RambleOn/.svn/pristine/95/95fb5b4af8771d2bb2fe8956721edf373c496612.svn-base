@@ -1,0 +1,213 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ramble_on;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import javax.swing.JPanel;
+import mini_game.*;
+import static ramble_on.RambleOnSettings.*;
+import ramble_on_sprites.TextualSprite;
+
+/**
+ *
+ * @author Leixiang
+ * @version 1.0
+ */
+public class RambleOnPanel extends JPanel {
+
+    // THIS IS ACTUALLY OUR RegionPicker APP, WE NEED THIS
+    // BECAUSE IT HAS THE GUI STUFF THAT WE NEED TO RENDER
+    private RambleOn game;
+    // AND HERE IS ALL THE GAME DATA THAT WE NEED TO RENDER
+    private RambleOnDataModel data;
+
+    /**
+     * This constructor stores the game and data references, which we'll need
+     * for rendering.
+     *
+     * @param initGame the RegionPicker game that is using this panel for
+     * rendering.
+     *
+     * @param initData the RegionPicker game data.
+     */
+    public RambleOnPanel(RambleOn initGame, RambleOnDataModel initData) {
+        game = initGame;
+        data = initData;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        renderToGraphicsContext(g);
+    }
+
+    public void renderToGraphicsContext(Graphics g) {
+        // RENDER THE WELCOME SCREEN
+        renderWelcomeScreen(g);
+
+        renderAccountsScreen(g);
+
+        renderAccountsCreationScreen(g);
+
+        renderCurrentAccountsScreen(g);
+
+        renderGamePlayScreen(g);
+    }
+
+    public void renderWelcomeScreen(Graphics g) {
+        Sprite background = game.getGUIButtons().get(WELCOME_TYPE);
+        if (data.isWelcomeScreen()) {
+            background.setState(VISIBLE_STATE);
+            renderSprite(g, background);
+        } else {
+            background.setActionListener(null);
+        }
+    }
+
+    public void renderAccountsScreen(Graphics g) {
+        if (data.isAccountScreen()) {
+            //super.paintComponent(g);
+            Sprite background = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, background);
+        }
+    }
+
+    public void renderAccountsCreationScreen(Graphics g) {
+        if (data.isAccountCreationScreen()) {
+            super.paintComponent(g);
+            Sprite background = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, background);
+        }
+    }
+
+    private void renderCurrentAccountsScreen(Graphics g) {
+        if (data.isCurrentAccountScreen()) {
+            super.paintComponent(g);
+            Sprite s;
+            s = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, s);
+            s = game.getGUIButtons().get(GO_BACK_BUTTON_TYPE);
+            renderSprite(g, s);
+            s = game.getGUIButtons().get(GO_FORWARD_BUTTON_TYPE);
+            renderSprite(g, s);
+        }
+    }
+
+    private void renderGamePlayScreen(Graphics g) {
+        if (data.isGamePlayScreen()) {
+            super.paintComponent(g);
+            Sprite s;
+            s = game.getGUIDecor().get(BACKGROUND_TYPE);
+            renderSprite(g, s);
+            s = game.getGUIDecor().get(GAME_LOGO_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIDecor().get(TOOLBAR_TYPE);
+            renderSprite(g, s);
+
+            //render the map.
+            renderSprite(g, data.getMapSprite());
+
+            s = game.getGUIButtons().get(SUB_REGION_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(FLAG_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(LEADER_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(CAPITAL_MODE_TYPE);
+            renderSprite(g, s);
+
+            s = game.getGUIButtons().get(LEFT_ARROW_TYPE);
+            renderSprite(g, s);
+
+            renderSubRegionsStack(g);
+        }
+    }
+
+    public Font getMaxFitFont(Graphics g, String text, int maxWidth, int maxHeight, String fontFamily, int fontStyle, int desiredPointSize) {
+        Font f = null;
+        boolean bestFontFound = false;
+        while (!bestFontFound) {
+            f = new Font(fontFamily, fontStyle, desiredPointSize);
+            g.setFont(f);
+            FontMetrics fm = g.getFontMetrics();
+            Rectangle2D textBounds = fm.getStringBounds(text, g);
+            double textWidth = textBounds.getWidth();
+            double textHeight = textBounds.getHeight();
+            if ((textWidth > maxWidth) || (textHeight > maxHeight)) {
+                desiredPointSize--;
+                if (desiredPointSize < 1) {
+                    return f;
+                }
+            } else {
+                bestFontFound = true;
+            }
+        }
+        return f;
+    }
+
+    /**
+     * Renders the s Sprite into the Graphics context g. Note that each Sprite
+     * knows its own x,y coordinate location.
+     *
+     * @param g the Graphics context of this panel
+     *
+     * @param s the Sprite to be rendered
+     */
+    public void renderSprite(Graphics g, Sprite s) {
+        if (!s.getState().equals(INVISIBLE_STATE)) {
+            SpriteType bgST = s.getSpriteType();
+            Image img = bgST.getStateImage(s.getState());
+            g.drawImage(img, (int) s.getX(), (int) s.getY(), bgST.getWidth(), bgST.getHeight(), null);
+        }
+    }
+
+    private void renderSubRegionsStack(Graphics g) {
+        String regionName = data.getRegionDataManager().getRegionName();
+        if (regionName != null) {
+            LinkedList<TextualSprite> list = data.getSubRegionStack();
+            Iterator<TextualSprite> it = list.iterator();
+            String textToRender = regionName + " FIX HERE!!!!";
+            Font font = getMaxFitFont(g, textToRender, 280, 40, "Serif", Font.BOLD, 40);
+            int counter = 0;
+            while (it.hasNext() && (counter < 10)) {
+                TextualSprite ts = it.next();
+                regionName = ts.getTextToRender();
+                int x = (int) (ts.getX());
+                int y = (int) (ts.getY());
+                int width = 300;
+                int height = 50;
+                Color fillColor = data.getRegionDataManager().getColorMappedToSubRegion(regionName);
+                Color textColor = Color.ORANGE;
+                if (counter == 0) {
+                    fillColor = new Color(100, 220, 100);
+                    textColor = new Color(255, 0, 0);
+                }
+                g.setColor(fillColor);
+                g.fill3DRect(x, y, width, height, true);
+                g.setColor(textColor);
+                g.drawString(regionName, x, y + 40);
+                counter++;
+            }
+            g.setColor(Color.BLACK);
+            g.fillRect(900, 150, 300, 50);
+            g.setColor(Color.ORANGE);
+            g.setFont(font);
+            g.drawString(textToRender, 910, 190);
+        }
+    }
+}

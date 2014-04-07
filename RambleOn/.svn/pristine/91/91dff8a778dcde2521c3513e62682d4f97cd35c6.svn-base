@@ -1,0 +1,84 @@
+package ramble_on;
+
+import java.awt.Font;
+import java.awt.Insets;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author Leixiang
+ */
+public class RambleOnSettings {
+
+    public static final int SPLIT_PANE_LEFT_LOCATION = 200;
+    public static final String CAPITAL_MODE = "Capital Mode";
+    public static final String LEADER_MODE = "Leader Mode";
+    public static final String SUB_REGION_MODE = "Sub Region Mode";
+    public static final String FLAG_MODE = "Flag Mode";
+    public static final String ACCOUNT_LIST = "Account List";
+    public static final String ACCOUNT_CREATION_HEADER = "Account Creation";
+    public static final String NEW_ACCOUNT_MESSAGE = "Enter your new user name: ";
+    public static final Font LABEL_FONT = new Font("Serif", Font.BOLD, 30);
+    public static final String FASTEST_TIME = "Fastest Time";
+    public static final String HIGHEST_SCORE = "Leader Mode";
+    public static final String NUM_PLAYED = "Played Times";
+    
+    
+    // PATH SETTINGS FOR LOADING DATA
+    public static final String DATA_PATH = "./data";
+    public static final String GUI_PATH = DATA_PATH + "/gui/";
+    public static final String ACCOUNTS_PATH = DATA_PATH + "accounts/";
+    
+    //THESE ARE IMAGES FOR RENDERING WELCOME SCREEN.
+    public static final String WELCOME_FILE_PATH = GUI_PATH + "Welcome.png";
+    public static final String GAME_ICON_FILE_PATH = GUI_PATH + "GameIcon.png";
+    
+    
+    //THESE ARE IMAGES FOR RENDERING CURRENT ACCOUNT SCREEN.
+    public static final String BACKGROUND_FILE_PATH = GUI_PATH + "Background.png";
+    public static final String GO_FORWARD_BUTTON_FILE_PATH = GUI_PATH + "GoForward.png";
+    public static final String GO_FORWARD_BUTTON_MOUSE_OVER_FILE_PATH = GUI_PATH + "GoForwardMouseOver.png";
+    public static final String GO_BACK_BUTTON_FILE_PATH = GUI_PATH + "GoBack.png";
+    public static final String GO_BACK_BUTTON_MOUSE_OVER_FILE_PATH = GUI_PATH + "GoBackMouseOver.png";
+    
+    
+    //THESE ARE IMAGES FOR RENDERING GAME PLAY SCREEN.
+    public static final String GAME_LOGO_FILE_PATH = GUI_PATH + "GameLogo.png";
+    
+    
+    //THESE ARE STATES OF GUI CONTROLS
+    public static final String INVISIBLE_STATE = "INVISIBLE_STATE";
+    public static final String VISIBLE_STATE = "VISIBLE_STATE";
+    public static final String DEFAULT_STATE = "DEFAULT_STATE";
+    public static final String MOUSE_OVER_STATE = "MOUSE_OVER_STATE";
+    
+    //THESE ARE TYPES OF GUI CONTROLS
+    public static final String WELCOME_TYPE = "WELCOME_TYPE";
+    public static final String BACKGROUND_TYPE = "BACKGROUND_TYPE";
+    public static final String GO_FORWARD_BUTTON_TYPE = "GO_FORWARD_BUTTON_TYPE";
+    public static final String GO_BACK_BUTTON_TYPE = "GO_BACK_BUTTON_TYPE";
+    public static final String VIEW_STATS_TYPE = "VIEW_STATS_TYPE";
+    
+    public static final String GAME_LOGO_TYPE = "GAME_LOGO_TYPE";
+    
+    
+    
+    // THESE CONSTANTS SETUP THE GAME DIMENSIONS. THE GAME WIDTH
+    // AND HEIGHT SHOULD MIRROR THE BACKGROUND IMAGE DIMENSIONS. WE
+    // WILL NOT RENDER ANYTHING OUTSIDE THOSE BOUNDS.
+    public static final int GAME_WIDTH = 1200;
+    public static final int GAME_HEIGHT = 700;
+    
+    
+    // HERE ARE SOME APP-LEVEL SETTINGS, LIKE THE FRAME RATE.
+    public static final String APP_TITLE = "The Ramble On Game";
+    public static final int FRAME_RATE = 30;
+    
+    // THESE ARE CONSTANTS THAT ARE USED FOR LAY OUT OUR GUI CONTROLS.
+    public static final int CONTROLS_IPADX = 5;
+    public static final int CONTROLS_IPADY = 10;
+    public static final Insets CONTROLS_INSETS = new Insets(5, 15, 5, 15);
+}
